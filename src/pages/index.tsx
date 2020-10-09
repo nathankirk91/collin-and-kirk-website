@@ -13,6 +13,7 @@ type DataProps = {
 const IndexPage: React.FC<PageProps<DataProps>> = () => (
   <Layout>
     <SEO title="Home" />
+    <Link to="/meet-our-team/">Meet Our Team</Link>
     <div>
       <h2>WHO ARE WE?</h2>
       <p>
