@@ -2,7 +2,6 @@ import React from "react"
 import { PageProps, Link, graphql } from "gatsby"
 import Img from "gatsby-image"
 
-import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 type DataProps = {
@@ -24,9 +23,8 @@ type DataProps = {
 const MeetOurTeamPage: React.FC<PageProps<DataProps>> = ({ data }) => {
   const team = data.allContentfulTeam.nodes
   return (
-    <Layout>
+    <>
       <SEO title="Meet Our Team" />
-      <div>Meet our team!</div>
       {team.map(member => (
         <div>
           <h2>{member.fullName}</h2>
@@ -38,7 +36,7 @@ const MeetOurTeamPage: React.FC<PageProps<DataProps>> = ({ data }) => {
         </div>
       ))}
       <pre>{JSON.stringify(data, null, 2)}</pre>
-    </Layout>
+    </>
   )
 }
 

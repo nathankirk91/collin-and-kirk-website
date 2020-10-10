@@ -1,7 +1,6 @@
 import React from "react"
 import { PageProps, Link } from "gatsby"
 
-import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 type DataProps = {
@@ -11,9 +10,8 @@ type DataProps = {
 }
 
 const IndexPage: React.FC<PageProps<DataProps>> = () => (
-  <Layout>
+  <>
     <SEO title="Home" />
-    <Link to="/meet-our-team/">Meet Our Team</Link>
     <div>
       <h2>WHO ARE WE?</h2>
       <p>
@@ -44,7 +42,7 @@ const IndexPage: React.FC<PageProps<DataProps>> = () => (
         Wayne Cooper.
       </p>
     </div>
-  </Layout>
+  </>
 )
 
 export default IndexPage
