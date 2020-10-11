@@ -24,13 +24,18 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   return (
     <>
       <HeaderContainer>
+        <ToggleButtonContainer collapse="lg">
+          <ToggleButtonLine />
+          <ToggleButtonLine />
+          <ToggleButtonLine />
+        </ToggleButtonContainer>
         <LogoContainer>
           <Link to="/">
             <Img fluid={data.imageSharp.fluid} alt={siteTitle} />
           </Link>
         </LogoContainer>
       </HeaderContainer>
-      <NavBar>
+      <NavBar collapse="lg">
         {linkData.map(link => (
           <NavLinks className={locData.pathname === link.link ? "active" : ""}>
             <Link to={link.link}>{link.name}</Link>
@@ -45,22 +50,28 @@ export default Header
 
 const HeaderContainer = styled.header`
   background: ${props => props.theme.navbar.colour.background};
-  max-width: 960px;
   margin-bottom: 1.45rem;
   margin: 0 auto;
+  border-bottom: ${({ theme }) => theme.navbar.border};
 `
 const LogoContainer = styled.div`
   max-width: 250px;
   margin: 0 auto;
   padding: 1.45rem 1.0875rem;
 `
-const NavBar = styled.ul`
+interface NavBarProps {
+  readonly collapse: string
+}
+const NavBar = styled.ul<NavBarProps>`
   display: flex;
   justify-content: center;
   margin: 0;
   width: 100%;
-  border-top: ${({ theme }) => theme.navbar.border};
   border-bottom: ${({ theme }) => theme.navbar.border};
+  ${props =>
+    props.theme.mediaQuery[props.collapse](`
+    display: none
+  `)}
 `
 const NavLinks = styled.li`
   list-style: none;
@@ -77,4 +88,30 @@ const NavLinks = styled.li`
   &.active {
     border-bottom: ${({ theme }) => theme.navbar.selectedBorder};
   }
+`
+const ToggleButtonContainer = styled.button<NavBarProps>`
+  position: absolute;
+  top: 53.5px;
+  left: 1rem;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 20px;
+  width: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+  }
+  ${props => props.theme.mediaQuery[props.collapse](`
+    display: flex; 
+  `)}
+`
+const ToggleButtonLine = styled.div`
+  width: 25px;
+  height: 2px;
+  background: black;
 `

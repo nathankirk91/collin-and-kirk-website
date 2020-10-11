@@ -10,6 +10,9 @@ declare module "styled-components" {
       border: string
       selectedBorder: string
       unselectedBorder: string
+    },
+    mediaQuery: {
+      lg(styles: string): FlattenSimpleInterpolation
     }
   }
 }

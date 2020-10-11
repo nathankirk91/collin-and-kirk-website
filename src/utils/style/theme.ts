@@ -1,5 +1,5 @@
 import { unstable_collectionGraphql } from "gatsby"
-import {DefaultTheme} from "styled-components"
+import { DefaultTheme, css } from "styled-components"
 
 const theme: DefaultTheme = {
   navbar: {
@@ -9,7 +9,14 @@ const theme: DefaultTheme = {
     },
     border: "1px gray solid",
     selectedBorder: "3px black solid",
-    unselectedBorder: "3px white solid"
+    unselectedBorder: "3px white solid",
+  },
+  mediaQuery: {
+    lg: (styles) => css`
+      @media only screen and (max-width: 992px) {
+        ${styles}
+      }
+    `,
   },
 }
 
