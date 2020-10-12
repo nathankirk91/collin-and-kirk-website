@@ -8,9 +8,10 @@ import styled, { keyframes } from "styled-components"
 
 interface HeaderProps {
   siteTitle: string
+  handleSidebarOpen: ()=>void
 }
 
-const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
+const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
   const locData = useLocation()
   const data = useStaticQuery(graphql`
     query LogoQuery {
@@ -24,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   return (
     <>
       <HeaderContainer>
-        <ToggleButtonContainer collapse="lg">
+        <ToggleButtonContainer onClick={handleSidebarOpen} collapse="lg">
           <ToggleButtonLine />
           <ToggleButtonLine />
           <ToggleButtonLine />
@@ -36,8 +37,8 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
         </LogoContainer>
       </HeaderContainer>
       <NavBar collapse="lg">
-        {linkData.map(link => (
-          <NavLinks className={locData.pathname === link.link ? "active" : ""}>
+        {linkData.map((link,index) => (
+          <NavLinks key={index} className={locData.pathname === link.link ? "active" : ""}>
             <Link to={link.link}>{link.name}</Link>
           </NavLinks>
         ))}
