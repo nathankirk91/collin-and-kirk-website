@@ -2,11 +2,14 @@ import React from "react"
 import styled from "styled-components"
 
 interface BackdropProps {
-    handleBackdropClicked: ()=>void 
+  onClick: ()=>void 
 }
 
-const Backdrop: React.FC<BackdropProps> = ({handleBackdropClicked}) => {
-  return <Container onClick={handleBackdropClicked}/>
+const Backdrop: React.FC<BackdropProps> = ({onClick}) => {
+  const handleOnClick = () => {
+    onClick()
+  }
+  return <Container onClick={handleOnClick}/>
 }
 
 export default Backdrop

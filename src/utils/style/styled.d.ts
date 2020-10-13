@@ -13,6 +13,7 @@ declare module "styled-components" {
     },
     mediaQuery: {
       lg(styles: string): FlattenSimpleInterpolation
+      md(styles: string): FlattenSimpleInterpolation
     }
   }
 }

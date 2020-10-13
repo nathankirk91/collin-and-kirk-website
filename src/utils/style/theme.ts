@@ -17,6 +17,11 @@ const theme: DefaultTheme = {
         ${styles}
       }
     `,
+    md:(styles) => css`
+    @media only screen and (max-width: 768px) {
+      ${styles}
+    }
+  `, 
   },
 }
 

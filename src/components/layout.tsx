@@ -30,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <Header handleSidebarOpen={handleSidedrawOpen} siteTitle={data.site.siteMetadata?.title} />
       <Sidebar clickHandler={handleSidedrawOpen} show={sidedrawOpen} />
-      {sidedrawOpen && <Backdrop handleBackdropClicked={handleSidedrawOpen}/>}
+      {sidedrawOpen && <Backdrop onClick={handleSidedrawOpen}/>}
       <MainContainer>
         <main>{children}</main>
         <Footer siteTitle={data.site.siteMetadata?.title} />
