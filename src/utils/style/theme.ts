@@ -1,4 +1,3 @@
-import { unstable_collectionGraphql } from "gatsby"
 import { DefaultTheme, css } from "styled-components"
 
 const theme: DefaultTheme = {
@@ -12,16 +11,21 @@ const theme: DefaultTheme = {
     unselectedBorder: "3px white solid",
   },
   mediaQuery: {
-    lg: (styles) => css`
+    lg: styles => css`
       @media only screen and (max-width: 992px) {
         ${styles}
       }
     `,
-    md:(styles) => css`
-    @media only screen and (max-width: 768px) {
-      ${styles}
-    }
-  `, 
+    md: styles => css`
+      @media only screen and (max-width: 768px) {
+        ${styles}
+      }
+    `,
+    sm: styles => css`
+      @media only screen and (max-width: 600px) {
+        ${styles}
+      }
+    `,
   },
 }
 
