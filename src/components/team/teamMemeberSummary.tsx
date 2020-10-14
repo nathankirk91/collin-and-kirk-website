@@ -9,6 +9,7 @@ interface TeamMemberProps {
   fullName: string
   title: string
   about: string
+  yearsInPractice: number
   fluid: Pick<
     ContentfulFluid,
     | "base64"
@@ -26,6 +27,7 @@ const TeamMemberSummary: React.FC<TeamMemberProps> = ({
   title,
   about,
   fluid,
+  yearsInPractice,
 }) => {
   const [cardOpened, setCardOpened] = React.useState(false)
   const handleOpenDetail =() => {
@@ -51,6 +53,7 @@ const TeamMemberSummary: React.FC<TeamMemberProps> = ({
           about={about}
           fullName={fullName}
           fluid={fluid}
+          yearsInPractice={yearsInPractice}
           handleCloseDetail={handleCloseDetail}
         />
       )}

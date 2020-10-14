@@ -20,6 +20,7 @@ const MeetOurTeamPage: React.FC<PageProps<TeamQuery>> = ({ data }) => {
             about={member.about.about}
             title={member.title}
             fluid={member.profilePicture.fluid}
+            yearsInPractice={member.yearsInPractice}
           />
         ))}
       </MainContainer>
