@@ -36,7 +36,7 @@ const TeamMemberDetail: React.FC<TeamMemberProps> = ({
   React.useEffect(() => {
     timerRef.current = setInterval(
       () => setYearCounter(prevState => prevState + 1),
-      1000/yearsInPractice
+      1000 / yearsInPractice
     )
     return () => {
       clearInterval(timerRef.current)
@@ -80,7 +80,7 @@ const MainContainer = styled.div<MainContainerProps>`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  max-height: calc(100vh - 64px);
+  max-height: calc(100vh - 100px);
   overflow: auto;
   ${props =>
     props.theme.mediaQuery[props.varWidth](css`
