@@ -7,7 +7,6 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 import SEO from "../components/seo"
 import { ContactUsQuery } from "../../graphql-types"
-import toHTML from "../helper/toHTML"
 
 const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => (
   <>
@@ -34,8 +33,8 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => (
               data.contentfulContactUs.contactUs.json,
               {
                 renderNode: {
-                  [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>,
-                },
+                  [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>
+                }
               }
             )}
           </DetailsContainer>
@@ -71,19 +70,17 @@ const SocialFlexBox = styled.div`
   display: flex;
   justify-content: space-between;
 `
-const SocialContainer = styled.div`
-  width: 30px;
-  height: 30px;
-`
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `
 interface InfoProps {
   stack: string
 }
 const InformationContainer = styled.div<InfoProps>`
   display: flex;
+  height: 100%;
   flex-basis: 0;
   flex-grow: 0;
   margin: 0.5rem 0;
@@ -95,6 +92,7 @@ const InformationContainer = styled.div<InfoProps>`
 const MapContainer = styled.div<InfoProps>`
   display: flex;
   width: 50%;
+  height: 100%;
   flex-direction: column;
   padding: 1rem 0;
   ${props =>
@@ -105,6 +103,7 @@ const MapContainer = styled.div<InfoProps>`
 `
 const DetailsContainer = styled.div<InfoProps>`
   width: 50%;
+  height: 100%;
   padding: 1rem;
   ${props =>
     props.theme.mediaQuery[props.stack](css`
@@ -136,9 +135,9 @@ const Iframe = styled.iframe.attrs(() => ({
   frameBorder: "0",
   scrolling: "no",
   marginHeight: 0,
-  marginWidth: 0,
+  marginWidth: 0
 }))`
-  height: 100%;
+  height: 320px;
   width: 100%;
 `
 const Seporator = styled.div`
