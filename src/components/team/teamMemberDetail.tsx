@@ -1,10 +1,9 @@
 import React from "react"
 import styled, { css } from "styled-components"
 import Img from "gatsby-image"
-import remark from "remark"
-import remarkHTML from "remark-html"
 
 import { ContentfulFluid } from "../../../graphql-types"
+import toHTML from "../../helper/toHTML"
 interface TeamMemberProps {
   fullName: string
   title: string
@@ -61,9 +60,6 @@ const TeamMemberDetail: React.FC<TeamMemberProps> = ({
 }
 
 export default TeamMemberDetail
-
-const toHTML = (value: string): string =>
-  remark().use(remarkHTML).processSync(value).toString()
 
 interface MainContainerProps {
   readonly varWidth: string

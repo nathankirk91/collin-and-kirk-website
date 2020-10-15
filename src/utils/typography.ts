@@ -2,7 +2,8 @@ import Typography from 'typography'
 import noriegaTheme from 'typography-theme-noriega'
 noriegaTheme.overrideThemeStyles = ({ rhythm }, options) => ({
     'a' : {
-        fontFamily: ["Lato", "sans-serif"].join(',')
+        fontFamily: ["Lato", "sans-serif"].join(','),
+        color: "black"
     },
     'p': {
         fontFamily: ["Lato", "sans-serif"].join(',')

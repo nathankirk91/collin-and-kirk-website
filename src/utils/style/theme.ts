@@ -10,6 +10,7 @@ const theme: DefaultTheme = {
     selectedBorder: "3px black solid",
     unselectedBorder: "3px white solid",
   },
+  borderColour: "gray",
   mediaQuery: {
     lg: styles => css`
       @media only screen and (max-width: 992px) {
