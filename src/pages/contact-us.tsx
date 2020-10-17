@@ -24,7 +24,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => (
           <MapContainer stack="md">
             <MapOuter>
               <GmapCanvas>
-                <Iframe src="https://maps.google.com/maps?q=774%20high%20street%20thornbury%20victoria&t=&z=15&ie=UTF8&iwloc=&output=embed"></Iframe>
+                <Iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.5091318610107!2d144.99930371495478!3d-37.75465857976303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6448bc3f12c33%3A0xea4909830e2fa2d3!2sCollin%20%26%20Kirk%20Optometrists!5e0!3m2!1sen!2sau!4v1602828679271!5m2!1sen!2sau"></Iframe>
               </GmapCanvas>
             </MapOuter>
           </MapContainer>
@@ -33,8 +33,8 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => (
               data.contentfulContactUs.contactUs.json,
               {
                 renderNode: {
-                  [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>
-                }
+                  [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>,
+                },
               }
             )}
           </DetailsContainer>
@@ -73,16 +73,13 @@ const SocialFlexBox = styled.div`
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
 `
 interface InfoProps {
   stack: string
 }
 const InformationContainer = styled.div<InfoProps>`
   display: flex;
-  height: 100%;
-  flex-basis: 0;
-  flex-grow: 0;
+  flex: 0 1 auto;
   margin: 0.5rem 0;
   ${props =>
     props.theme.mediaQuery[props.stack](css`
@@ -91,8 +88,7 @@ const InformationContainer = styled.div<InfoProps>`
 `
 const MapContainer = styled.div<InfoProps>`
   display: flex;
-  width: 50%;
-  height: 100%;
+  flex: 0 1 50%;
   flex-direction: column;
   padding: 1rem 0;
   ${props =>
@@ -102,8 +98,9 @@ const MapContainer = styled.div<InfoProps>`
     `)}
 `
 const DetailsContainer = styled.div<InfoProps>`
-  width: 50%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 50%;
   padding: 1rem;
   ${props =>
     props.theme.mediaQuery[props.stack](css`
@@ -116,32 +113,27 @@ const FormContainer = styled.div`
 `
 
 const MapOuter = styled.div`
+  display: flex;
   position: relative;
   text-align: right;
-  height: 100%;
-  width: 100%;
-  /* min-height: 400px; */
 `
 const GmapCanvas = styled.div`
+  display: flex;
   overflow: hidden;
   background: none !important;
-  height: 100%;
   width: 100%;
-  /* min-height: 400px; */
 `
 const Iframe = styled.iframe.attrs(() => ({
-  height: "100%",
+  height: "320px",
   width: "100%",
   frameBorder: "0",
   scrolling: "no",
   marginHeight: 0,
-  marginWidth: 0
+  marginWidth: 0,
 }))`
-  height: 320px;
-  width: 100%;
+  border: 0;
 `
 const Seporator = styled.div`
-  width: 100%;
   height: 1px;
   background: ${({ theme }) => theme.borderColour};
 `
