@@ -3150,10 +3150,10 @@ export type Query = {
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
-  contentfulContactUsContactUsRichTextNode?: Maybe<ContentfulContactUsContactUsRichTextNode>;
-  allContentfulContactUsContactUsRichTextNode: ContentfulContactUsContactUsRichTextNodeConnection;
   contentfulAsset?: Maybe<ContentfulAsset>;
   allContentfulAsset: ContentfulAssetConnection;
+  contentfulContactUsContactUsRichTextNode?: Maybe<ContentfulContactUsContactUsRichTextNode>;
+  allContentfulContactUsContactUsRichTextNode: ContentfulContactUsContactUsRichTextNodeConnection;
   contentfulContactUs?: Maybe<ContentfulContactUs>;
   allContentfulContactUs: ContentfulContactUsConnection;
   contentfulTeamAboutTextNode?: Maybe<ContentfulTeamAboutTextNode>;
@@ -3338,27 +3338,6 @@ export type QueryAllImageSharpArgs = {
 };
 
 
-export type QueryContentfulContactUsContactUsRichTextNodeArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  nodeType?: Maybe<StringQueryOperatorInput>;
-  content?: Maybe<ContentfulContactUsContactUsRichTextNodeContentFilterListInput>;
-  contactUs?: Maybe<StringQueryOperatorInput>;
-  sys?: Maybe<ContentfulContactUsContactUsRichTextNodeSysFilterInput>;
-  json?: Maybe<JsonQueryOperatorInput>;
-};
-
-
-export type QueryAllContentfulContactUsContactUsRichTextNodeArgs = {
-  filter?: Maybe<ContentfulContactUsContactUsRichTextNodeFilterInput>;
-  sort?: Maybe<ContentfulContactUsContactUsRichTextNodeSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
 export type QueryContentfulAssetArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -3384,6 +3363,27 @@ export type QueryContentfulAssetArgs = {
 export type QueryAllContentfulAssetArgs = {
   filter?: Maybe<ContentfulAssetFilterInput>;
   sort?: Maybe<ContentfulAssetSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryContentfulContactUsContactUsRichTextNodeArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<ContentfulContactUsContactUsRichTextNodeContentFilterListInput>;
+  contactUs?: Maybe<StringQueryOperatorInput>;
+  sys?: Maybe<ContentfulContactUsContactUsRichTextNodeSysFilterInput>;
+  json?: Maybe<JsonQueryOperatorInput>;
+};
+
+
+export type QueryAllContentfulContactUsContactUsRichTextNodeArgs = {
+  filter?: Maybe<ContentfulContactUsContactUsRichTextNodeFilterInput>;
+  sort?: Maybe<ContentfulContactUsContactUsRichTextNodeSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };

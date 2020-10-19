@@ -1,5 +1,7 @@
 import React from "react"
 import { ThemeProvider, createGlobalStyle } from "styled-components"
+import { ApolloProvider } from "@apollo/client"
+import client from "./src/apollo/client"
 import Layout from "./src/components/layout"
 import themeContext from "./src/utils/style/theme"
 
@@ -18,7 +20,8 @@ const GlobalStyle = createGlobalStyle`
 export const wrapRootElement = ({ element }) => (
   <ThemeProvider theme={themeContext}>
     <GlobalStyle />
-    {element}
+    <ApolloProvider client={client}>{element}</ApolloProvider>
+    {/* {element}  */}
   </ThemeProvider>
 )
 

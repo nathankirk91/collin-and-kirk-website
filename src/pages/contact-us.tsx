@@ -1,54 +1,167 @@
-import React from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { PageProps, graphql } from "gatsby"
 import Img from "gatsby-image"
 import styled, { css } from "styled-components"
 import { BLOCKS } from "@contentful/rich-text-types"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { useMutation } from "@apollo/client"
+import { useFormik } from "formik"
 
 import SEO from "../components/seo"
 import { ContactUsQuery } from "../../graphql-types"
+import {
+  CONTACT_US,
+  ContactDetails,
+  ContactUsSchema,
+  ContactUsRes,
+} from "../apollo/contactUs"
+import Spinner from "../components/spinner/spinner"
 
-const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => (
-  <>
-    <SEO title="Contact Us" />
-    <div>
-      <SocialFlexBox>
-        <h2>Cotnact Us</h2>
-        <a href="https://www.facebook.com/collinandkirk/" target="_blank">
-          <Img fixed={data.imageSharp.fixed} alt="Facebook" />
-        </a>
-      </SocialFlexBox>
-      <MainContainer>
-        <h3 style={{ margin: "0px" }}>Thornbury</h3>
-        <InformationContainer stack="md">
-          <MapContainer stack="md">
-            <MapOuter>
-              <GmapCanvas>
-                <Iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.5091318610107!2d144.99930371495478!3d-37.75465857976303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6448bc3f12c33%3A0xea4909830e2fa2d3!2sCollin%20%26%20Kirk%20Optometrists!5e0!3m2!1sen!2sau!4v1602828679271!5m2!1sen!2sau"></Iframe>
-              </GmapCanvas>
-            </MapOuter>
-          </MapContainer>
-          <DetailsContainer stack="md">
-            {documentToReactComponents(
-              data.contentfulContactUs.contactUs.json,
-              {
-                renderNode: {
-                  [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>,
-                },
-              }
+const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
+  const [contactUs, { loading }] = useMutation<
+    Promise<Boolean>,
+    ContactDetails
+  >(CONTACT_US)
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      surname: "",
+      email: "",
+      message: "",
+    },
+    onSubmit: async (
+      { email, firstName, surname, message },
+      { resetForm, setSubmitting }
+    ) => {
+      scrollToSeparator()
+      const res: ContactUsRes = await contactUs({
+        variables: {
+          email,
+          firstName,
+          message,
+          surname,
+        },
+      })
+      if (isCurrent.current) {
+        setStatus({
+          posted: true,
+          emailSent: res.data.contactUs,
+          firstName: firstName,
+        })
+        setSubmitting(false)
+        resetForm()
+      }
+    },
+    validationSchema: ContactUsSchema,
+  })
+  const [status, setStatus] = useState({
+    posted: false,
+    emailSent: false,
+    firstName: "",
+  })
+  const separatorRef = useRef(null)
+  const isCurrent = useRef(true)
+  useEffect(() => {
+    return () => {
+      isCurrent.current = false
+    }
+  }, [])
+  const scrollToSeparator = () => {
+    window.scrollTo(0, separatorRef.current.offsetTop)
+  }
+  return (
+    <>
+      <SEO title="Contact Us" />
+      <div>
+        <SocialFlexBox>
+          <h2>Cotnact Us</h2>
+          <a href="https://www.facebook.com/collinandkirk/" target="_blank">
+            <Img fixed={data.imageSharp.fixed} alt="Facebook" />
+          </a>
+        </SocialFlexBox>
+        <MainContainer>
+          <h3 style={{ margin: "0px" }}>Thornbury</h3>
+          <InformationContainer stack="md">
+            <MapContainer stack="md">
+              <MapOuter>
+                <GmapCanvas>
+                  <Iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.5091318610107!2d144.99930371495478!3d-37.75465857976303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6448bc3f12c33%3A0xea4909830e2fa2d3!2sCollin%20%26%20Kirk%20Optometrists!5e0!3m2!1sen!2sau!4v1602828679271!5m2!1sen!2sau"></Iframe>
+                </GmapCanvas>
+              </MapOuter>
+            </MapContainer>
+            <DetailsContainer stack="md">
+              {documentToReactComponents(
+                data.contentfulContactUs.contactUs.json,
+                {
+                  renderNode: {
+                    [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>,
+                  },
+                }
+              )}
+            </DetailsContainer>
+          </InformationContainer>
+          <Seporator ref={separatorRef} />
+          <FormContainer>
+            <form onSubmit={formik.handleSubmit}>
+              <p>Form to be created</p>
+              {loading && <Spinner />}
+              {status.posted && status.emailSent && (
+                <p>
+                  Thank you {status.firstName} for your message. We will respond
+                  to you as soon as possible
+                </p>
+              )}
+              {status.posted && !status.emailSent && (
+              <p>
+                Sorry {status.firstName} there was a server error, please try again
+                or if the issue persists please call.
+              </p>
             )}
-          </DetailsContainer>
-        </InformationContainer>
-        <Seporator />
-        <FormContainer>
-          <form>
-            <p>Form to be created</p>
-          </form>
-        </FormContainer>
-      </MainContainer>
-    </div>
-  </>
-)
+              <div>
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  placeholder="First Name"
+                  onChange={formik.handleChange}
+                  value={formik.values.firstName}
+                />
+                <Input
+                  id="surname"
+                  name="surname"
+                  type="text"
+                  placeholder="Surname"
+                  onChange={formik.handleChange}
+                  value={formik.values.surname}
+                />
+              </div>
+              <div>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                />
+              </div>
+              <div>
+                <TextArea
+                  id="message"
+                  name="message"
+                  placeholder="Message"
+                  onChange={formik.handleChange}
+                  value={formik.values.message}
+                />
+              </div>
+              <button type="submit">Send email</button>
+            </form>
+          </FormContainer>
+        </MainContainer>
+      </div>
+    </>
+  )
+}
 
 export default ContactUsPage
 
@@ -140,3 +253,5 @@ const Seporator = styled.div`
 const P = styled.p`
   margin-bottom: 10px;
 `
+const Input = styled.input``
+const TextArea = styled.textarea``
