@@ -19,7 +19,7 @@ import Spinner from "../components/spinner/spinner"
 
 const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
   const [contactUs, { loading }] = useMutation<
-    Promise<Boolean>,
+    ContactUsRes,
     ContactDetails
   >(CONTACT_US)
   const formik = useFormik({
@@ -34,7 +34,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
       { resetForm, setSubmitting }
     ) => {
       scrollToSeparator()
-      const res: ContactUsRes = await contactUs({
+      const res = await contactUs({
         variables: {
           email,
           firstName,

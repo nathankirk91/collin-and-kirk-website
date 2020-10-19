@@ -9,9 +9,7 @@ export interface ContactDetails {
 }
 
 export interface ContactUsRes {
-  data: {
-    contactUs: boolean
-  }
+  contactUs: boolean
 }
 
 export const CONTACT_US = gql`
@@ -31,11 +29,13 @@ export const CONTACT_US = gql`
 `
 
 export const ContactUsSchema = yup.object().shape({
-  firstName: yup.string()
+  firstName: yup
+    .string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  surname: yup.string()
+  surname: yup
+    .string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
