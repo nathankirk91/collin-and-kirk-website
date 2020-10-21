@@ -22,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
       }
     }
   `)
+  console.log(locData.pathname)
   return (
     <>
       <HeaderContainer>
@@ -38,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
       </HeaderContainer>
       <NavBar collapse="lg">
         {linkData.map((link,index) => (
-          <NavLinks key={index} className={locData.pathname === link.link ? "active" : ""}>
+          <NavLinks key={index} className={locData.pathname.split("/")[1] === link.link.split("/")[1] ? "active" : ""}>
             <Link to={link.link}>{link.name}</Link>
           </NavLinks>
         ))}
