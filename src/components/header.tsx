@@ -22,7 +22,6 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
       }
     }
   `)
-  console.log(locData.pathname)
   return (
     <>
       <HeaderContainer>

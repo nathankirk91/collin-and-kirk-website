@@ -6007,7 +6007,10 @@ export type LogoQuery1Query = { imageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSh
 export type ContactUsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ContactUsQuery = { contentfulContactUs?: Maybe<{ contactUs?: Maybe<Pick<ContentfulContactUsContactUsRichTextNode, 'json'>> }>, imageSharp?: Maybe<{ fixed?: Maybe<GatsbyImageSharpFixed_WithWebpFragment> }> };
+export type ContactUsQuery = { contentfulContactUs?: Maybe<{ contactUs?: Maybe<Pick<ContentfulContactUsContactUsRichTextNode, 'json'>> }>, imageSharp?: Maybe<{ fixed?: Maybe<GatsbyImageSharpFixed_WithWebpFragment> }>, contentfulAsset?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fluid?: Maybe<GatsbyContentfulFluid_WithWebpFragment> }
+  )> };
 
 export type EyeConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 

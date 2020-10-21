@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import { PageProps, graphql } from "gatsby"
+import { PageProps, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled, { css } from "styled-components"
 import { BLOCKS } from "@contentful/rich-text-types"
@@ -17,12 +17,16 @@ import {
 } from "../apollo/contactUs"
 import Spinner from "../components/spinner/spinner"
 import Separator from "../components/Separator"
+import Input from "../components/form/input"
+import TextArea from "../components/form/TextArea"
+import FormControlItem from "../components/form/FormControlItem"
+import CustomErrorMessage from "../components/form/CustomErrorMessage"
+import Button from "../components/form/Button"
 
 const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
-  const [contactUs, { loading }] = useMutation<
-    ContactUsRes,
-    ContactDetails
-  >(CONTACT_US)
+  const [contactUs, { loading }] = useMutation<ContactUsRes, ContactDetails>(
+    CONTACT_US
+  )
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -101,63 +105,110 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
               )}
             </DetailsContainer>
           </InformationContainer>
-          <Separator ref={separatorRef} />
-          <FormContainer>
-            <form onSubmit={formik.handleSubmit}>
-              <p>Form to be created</p>
-              {loading && <Spinner />}
-              {status.posted && status.emailSent && (
+          <Separator />
+          <ColouredContainer>
+            <H2>GET IN TOUCH</H2>
+            <FormFlexContainer>
+              <FormContainer>
+                {!status.posted && (
+                  <Form onSubmit={formik.handleSubmit}>
+                    <FormControlItem>
+                      <Input
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        placeholder="First Name"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.firstName}
+                      />
+                      {formik.touched.firstName && (
+                        <CustomErrorMessage>
+                          {formik.errors.firstName}
+                        </CustomErrorMessage>
+                      )}
+                    </FormControlItem>
+                    <FormControlItem>
+                      <Input
+                        id="surname"
+                        name="surname"
+                        type="text"
+                        placeholder="Surname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.surname}
+                      />
+                      {formik.touched.surname && (
+                        <CustomErrorMessage>
+                          {formik.errors.surname}
+                        </CustomErrorMessage>
+                      )}
+                    </FormControlItem>
+                    <FormControlItem>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.email}
+                      />
+                      {formik.touched.email && (
+                        <CustomErrorMessage>
+                          {formik.errors.email}
+                        </CustomErrorMessage>
+                      )}
+                    </FormControlItem>
+                    <FormControlItem>
+                      <TextArea
+                        id="message"
+                        name="message"
+                        placeholder="Message"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.message}
+                      />
+                      {formik.touched.message && (
+                        <CustomErrorMessage>
+                          {formik.errors.message}
+                        </CustomErrorMessage>
+                      )}
+                    </FormControlItem>
+                    <Button type="submit">Send email</Button>
+                  </Form>
+                )}
+                <FormResponseContainer>
+                  {loading && <Spinner />}
+                  <p ref={separatorRef}>
+                    {status.posted && status.emailSent && (
+                      <>
+                        Thank you {status.firstName} for your message. We will
+                        respond to you as soon as possible
+                      </>
+                    )}
+                    {status.posted && !status.emailSent && (
+                      <>
+                        Sorry {status.firstName} there was a server error,
+                        please try again or if the issue persists please call.
+                      </>
+                    )}
+                  </p>
+                </FormResponseContainer>
+              </FormContainer>
+              <ImageContainer>
                 <p>
-                  Thank you {status.firstName} for your message. We will respond
-                  to you as soon as possible
+                  This is for questions and inquiries only. If you would like to
+                  book an appointment please go{" "}
+                  <Link to="/book-an-appointment/">here</Link>. Thank you.{" "}
                 </p>
-              )}
-              {status.posted && !status.emailSent && (
-              <p>
-                Sorry {status.firstName} there was a server error, please try again
-                or if the issue persists please call.
-              </p>
-            )}
-              <div>
-                <Input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  placeholder="First Name"
-                  onChange={formik.handleChange}
-                  value={formik.values.firstName}
+                <Img
+                  fluid={data.contentfulAsset.fluid}
+                  alt={data.contentfulAsset.title}
                 />
-                <Input
-                  id="surname"
-                  name="surname"
-                  type="text"
-                  placeholder="Surname"
-                  onChange={formik.handleChange}
-                  value={formik.values.surname}
-                />
-              </div>
-              <div>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                />
-              </div>
-              <div>
-                <TextArea
-                  id="message"
-                  name="message"
-                  placeholder="Message"
-                  onChange={formik.handleChange}
-                  value={formik.values.message}
-                />
-              </div>
-              <button type="submit">Send email</button>
-            </form>
-          </FormContainer>
+              </ImageContainer>
+            </FormFlexContainer>
+          </ColouredContainer>
         </MainContainer>
       </div>
     </>
@@ -177,6 +228,12 @@ export const query = graphql`
       fixed(width: 30, height: 30) {
         ...GatsbyImageSharpFixed_withWebp
       }
+    }
+    contentfulAsset(title: { eq: "reception-contact-us" }) {
+      fluid {
+        ...GatsbyContentfulFluid_withWebp
+      }
+      title
     }
   }
 `
@@ -223,9 +280,16 @@ const DetailsContainer = styled.div<InfoProps>`
     `)}
 `
 const FormContainer = styled.div`
-  margin: 0.5rem 0;
+  flex: 1 1 320px;
+  margin: 0.5rem 5px;
+  padding: 10px;
 `
-
+const ColouredContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  background: #f6f6f6;
+`
 const MapOuter = styled.div`
   display: flex;
   position: relative;
@@ -247,8 +311,30 @@ const Iframe = styled.iframe.attrs(() => ({
 }))`
   border: 0;
 `
+const Form = styled.form`
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 const P = styled.p`
   margin-bottom: 10px;
 `
-const Input = styled.input``
-const TextArea = styled.textarea``
+const H2 = styled.h2`
+  margin: 5px 1rem;
+  text-align: center;
+`
+const FormFlexContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+`
+const ImageContainer = styled.div`
+  flex: 1 1 320px;
+  margin: 0 5px;
+  padding: 10px;
+`
+const FormResponseContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`

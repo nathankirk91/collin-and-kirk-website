@@ -5,6 +5,7 @@ import styled, { css } from "styled-components"
 import SEO from "../components/seo"
 import { EyeConditionsQuery } from "../../graphql-types"
 import Separator from "../components/Separator"
+import Button from "../components/form/Button"
 
 const truncate = (str: string, max: number, suffix: string): string =>
   str.length < max
@@ -43,7 +44,7 @@ const EyeConditionsPage: React.FC<PageProps<EyeConditionsQuery>> = ({
             </P>
             <ButtonContainer leftPos={leftPos(index)} mobile="lg">
               <Link to={condition.slug}>
-                <ReadMoreButton>READ MORE</ReadMoreButton>
+                <Button>READ MORE</Button>
               </Link>
             </ButtonContainer>
             <Separator />
@@ -98,17 +99,4 @@ const H3 = styled.h3<Position>`
     props.theme.mediaQuery[props.mobile](css`
       text-align: left;
     `)}
-`
-const ReadMoreButton = styled.div`
-  margin-bottom: 1rem;
-  color: white;
-  background: black;
-  cursor: pointer;
-  padding: 0.25rem 1rem;
-  box-shadow: 0px 0px;
-  transition: box-shadow 150ms linear;
-  &:hover,
-  &:active {
-    box-shadow: 0 0 3px black;
-  }
 `
