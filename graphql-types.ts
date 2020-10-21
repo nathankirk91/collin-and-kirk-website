@@ -5393,6 +5393,35 @@ export type EyeConditionsQuery = { allContentfulEyeCondition: { nodes: Array<(
       & { excerpt?: Maybe<Pick<ContentfulEyeConditionExcerptTextNode, 'excerpt'>> }
     )> } };
 
+export type HomePageImagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomePageImagesQuery = { reception?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fluid?: Maybe<GatsbyContentfulFluid_WithWebpFragment> }
+  )>, glasses?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fluid?: Maybe<GatsbyContentfulFluid_WithWebpFragment> }
+  )>, shopfront?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fluid?: Maybe<GatsbyContentfulFluid_WithWebpFragment> }
+  )>, practiceLogo?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fluid?: Maybe<GatsbyContentfulFluid_WithWebpFragment> }
+  )>, medicare?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
+  )>, bupa?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
+  )>, medibank?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
+  )>, ausralianUnity?: Maybe<(
+    Pick<ContentfulAsset, 'title'>
+    & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
+  )> };
+
 export type TeamQueryVariables = Exact<{ [key: string]: never; }>;
 
 
