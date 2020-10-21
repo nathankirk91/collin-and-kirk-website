@@ -2,6 +2,7 @@ import React from "react"
 import { PageProps, Link, graphql } from "gatsby"
 import styled from "styled-components"
 import Img from "gatsby-image"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 import SEO from "../components/seo"
 import { HomePageImagesQuery } from "../../graphql-types"
@@ -10,12 +11,40 @@ import {
   LayoutImgRight,
 } from "../components/home-page-layout/Layout"
 import Separator from "../components/Separator"
+import Backdrop from "../components/backdrop"
+import Modal from "../components/modal/Modal"
 
 const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
+  const [showModal, setShowModal] = React.useState(false)
+  React.useEffect(() => {
+    const localAnnDate = localStorage.getItem("announcement_date")
+    if (localAnnDate !== data.contentfulAnnouncement.date) {
+      setShowModal(true)
+      localStorage.setItem(
+        "announcement_date",
+        data.contentfulAnnouncement.date
+      )
+    }
+  }, [])
+
+  const closeModal = () => setShowModal(false)
+  const openModal = () => setShowModal(true)
+
   const images = data
   return (
     <>
       <SEO title="Home" />
+      {showModal && (
+        <>
+          <Backdrop onClick={closeModal} />
+          <Modal handleClose={closeModal}>
+            <h2>{data.contentfulAnnouncement.title}</h2>
+            {documentToReactComponents(data.contentfulAnnouncement.body.json)}
+          </Modal>
+        </>
+      )}
+      <Announcement onClick={openModal}>📢 ANNOUNCEMENTS</Announcement>
+      <Separator />
       <LayoutImgRight
         title="WHO ARE WE?"
         body="At Collin & Kirk Optometrists, we provide professional personalised eye
@@ -72,6 +101,13 @@ export default IndexPage
 
 export const query = graphql`
   query HomePageImages {
+    contentfulAnnouncement {
+      title
+      date(formatString: "DD-MM-YYYY")
+      body {
+        json
+      }
+    }
     reception: contentfulAsset(title: { eq: "reception-waiting-room" }) {
       title
       fluid {
@@ -135,4 +171,13 @@ const ImagesContainer = styled.div`
 `
 const ImgContainer = styled.div`
   margin: 0 0.5rem;
+`
+const Announcement = styled.h3`
+  text-align: center;
+  margin: 1rem;
+  margin-top:0;
+  &:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `

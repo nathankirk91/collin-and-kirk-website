@@ -23,14 +23,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       }
     }
   `)
-
-    const handleSidedrawOpen = () => setSidedrawOpen((prevState)=>(!prevState))
-
+  const handleSidedrawOpen = () => setSidedrawOpen(prevState => !prevState)
   return (
     <>
-      <Header handleSidebarOpen={handleSidedrawOpen} siteTitle={data.site.siteMetadata?.title} />
+      <Header
+        handleSidebarOpen={handleSidedrawOpen}
+        siteTitle={data.site.siteMetadata?.title}
+      />
       <Sidebar clickHandler={handleSidedrawOpen} show={sidedrawOpen} />
-      {sidedrawOpen && <Backdrop onClick={handleSidedrawOpen}/>}
+      {sidedrawOpen && <Backdrop onClick={handleSidedrawOpen} />}
       <MainContainer>
         <main>{children}</main>
         <Footer siteTitle={data.site.siteMetadata?.title} />
