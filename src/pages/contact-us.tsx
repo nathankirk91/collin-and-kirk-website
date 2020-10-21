@@ -96,7 +96,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
             </MapContainer>
             <DetailsContainer stack="md">
               {documentToReactComponents(
-                data.contentfulContactUs.contactUs.json,
+                data.contentfulPage.body.json,
                 {
                   renderNode: {
                     [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>,
@@ -219,8 +219,8 @@ export default ContactUsPage
 
 export const query = graphql`
   query ContactUs {
-    contentfulContactUs {
-      contactUs {
+    contentfulPage(title: { eq: "Contact Us" }) {
+      body {
         json
       }
     }
