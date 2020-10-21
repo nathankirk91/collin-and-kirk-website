@@ -175,7 +175,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
                         </CustomErrorMessage>
                       )}
                     </FormControlItem>
-                    <Button type="submit">Send email</Button>
+                    <Button type="submit">SUBMIT</Button>
                   </Form>
                 )}
                 <FormResponseContainer>
