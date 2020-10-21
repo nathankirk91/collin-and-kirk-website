@@ -8,7 +8,7 @@ import styled, { keyframes } from "styled-components"
 
 interface HeaderProps {
   siteTitle: string
-  handleSidebarOpen: ()=>void
+  handleSidebarOpen: () => void
 }
 
 const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
@@ -37,10 +37,19 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
         </LogoContainer>
       </HeaderContainer>
       <NavBar collapse="lg">
-        {linkData.map((link,index) => (
-          <NavLinks key={index} className={locData.pathname.split("/")[1] === link.link.split("/")[1] ? "active" : ""}>
-            <Link to={link.link}>{link.name}</Link>
-          </NavLinks>
+        {linkData.map((link, index) => (
+          <Link to={link.link} style={{textDecoration: "none"}}>
+            <NavLinks
+              key={index}
+              className={
+                locData.pathname.split("/")[1] === link.link.split("/")[1]
+                  ? "active"
+                  : ""
+              }
+            >
+              {link.name}
+            </NavLinks>
+          </Link>
         ))}
       </NavBar>
     </>
@@ -80,8 +89,8 @@ const NavLinks = styled.li`
   margin: 0 1rem;
   border-bottom: ${({ theme }) => theme.navbar.unselectedBorder};
   transition: border 300ms linear;
+  text-decoration: none;
   & a {
-    text-decoration: none;
     color: ${({ theme }) => theme.navbar.colour.font};
     font-size: 0.8rem;
   }
@@ -107,7 +116,8 @@ const ToggleButtonContainer = styled.button<NavBarProps>`
   &:focus {
     outline: none;
   }
-  ${props => props.theme.mediaQuery[props.collapse](`
+  ${props =>
+    props.theme.mediaQuery[props.collapse](`
     display: flex; 
   `)}
 `
