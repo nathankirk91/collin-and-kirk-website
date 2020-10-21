@@ -17,7 +17,7 @@ import {
 } from "../apollo/contactUs"
 import Spinner from "../components/spinner/spinner"
 import Separator from "../components/Separator"
-import Input from "../components/form/input"
+import Input from "../components/form/Input"
 import TextArea from "../components/form/TextArea"
 import FormControlItem from "../components/form/FormControlItem"
 import CustomErrorMessage from "../components/form/CustomErrorMessage"
