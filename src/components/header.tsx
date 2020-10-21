@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
       </HeaderContainer>
       <NavBar collapse="lg">
         {linkData.map((link, index) => (
-          <Link to={link.link} style={{textDecoration: "none"}}>
+          <Link to={link.link} style={{textDecoration: "none", fontSize: "0.9rem"}}>
             <NavLinks
               key={index}
               className={
