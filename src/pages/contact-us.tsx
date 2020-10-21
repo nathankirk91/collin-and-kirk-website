@@ -16,6 +16,7 @@ import {
   ContactUsRes,
 } from "../apollo/contactUs"
 import Spinner from "../components/spinner/spinner"
+import Separator from "../components/Separator"
 
 const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
   const [contactUs, { loading }] = useMutation<
@@ -100,7 +101,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
               )}
             </DetailsContainer>
           </InformationContainer>
-          <Seporator ref={separatorRef} />
+          <Separator ref={separatorRef} />
           <FormContainer>
             <form onSubmit={formik.handleSubmit}>
               <p>Form to be created</p>
@@ -245,10 +246,6 @@ const Iframe = styled.iframe.attrs(() => ({
   marginWidth: 0,
 }))`
   border: 0;
-`
-const Seporator = styled.div`
-  height: 1px;
-  background: ${({ theme }) => theme.borderColour};
 `
 const P = styled.p`
   margin-bottom: 10px;
