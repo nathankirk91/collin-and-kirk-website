@@ -15,6 +15,8 @@ declare module "styled-components" {
     navColour: string
     footerColour: string
     footerFontColour: string
+    sidebarBackgroundColour: string
+    sidebarActiveFontColour: string
     mediaQuery: {
       lg(styles: string): FlattenSimpleInterpolation
       md(styles: string): FlattenSimpleInterpolation

@@ -14,6 +14,8 @@ const theme: DefaultTheme = {
   navColour: "#f6f6f6",
   footerColour: "#2a2a2a",
   footerFontColour: "white",
+  sidebarBackgroundColour: "white",
+  sidebarActiveFontColour: "hsl(143deg 100% 28%)",
   mediaQuery: {
     lg: styles => css`
       @media only screen and (max-width: 992px) {

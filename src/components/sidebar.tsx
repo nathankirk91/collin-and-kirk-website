@@ -51,7 +51,7 @@ interface SidebarProps {
 const SidebarContainer = styled.nav<SidebarProps>`
   display: none;
   height: 100%;
-  background: white;
+  background: ${({theme})=>theme.sidebarBackgroundColour};
   box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -91,7 +91,7 @@ const SidebarLink = styled(Link)`
   &:hover,
   &:active {
     cursor: pointer;
-    color: hsl(143deg 100% 28%);
+    color: ${({theme})=>theme.sidebarActiveFontColour};
   }
 `
 const LogoContainer = styled.div`
