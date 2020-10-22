@@ -12,6 +12,9 @@ declare module "styled-components" {
       unselectedBorder: string
     }
     borderColour: string
+    navColour: string
+    footerColour: string
+    footerFontColour: string
     mediaQuery: {
       lg(styles: string): FlattenSimpleInterpolation
       md(styles: string): FlattenSimpleInterpolation

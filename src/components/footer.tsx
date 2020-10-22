@@ -20,4 +20,6 @@ const FooterContainer = styled.footer`
   padding: 2rem;
   margin-top: 2rem;
   text-align: center;
+  background-color: ${({ theme }) => theme.footerColour};
+  color: ${({ theme }) => theme.footerFontColour};
 `

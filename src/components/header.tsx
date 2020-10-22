@@ -77,6 +77,7 @@ const NavBar = styled.ul<NavBarProps>`
   justify-content: center;
   margin: 0;
   width: 100%;
+  background-color: ${({theme}) => theme.navColour};
   border-bottom: ${({ theme }) => theme.navbar.border};
   ${props =>
     props.theme.mediaQuery[props.collapse](`
@@ -90,10 +91,12 @@ const NavLinks = styled.li`
   border-bottom: ${({ theme }) => theme.navbar.unselectedBorder};
   transition: border 300ms linear;
   text-decoration: none;
-  & a {
+  color: ${({ theme }) => theme.navbar.colour.font};
+    font-size: 0.8rem;
+  /* & a {
     color: ${({ theme }) => theme.navbar.colour.font};
     font-size: 0.8rem;
-  }
+  } */
   &:hover,
   &.active {
     border-bottom: ${({ theme }) => theme.navbar.selectedBorder};
