@@ -4578,10 +4578,10 @@ export type Query = {
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
-  contentfulAnnouncementBodyRichTextNode?: Maybe<ContentfulAnnouncementBodyRichTextNode>;
-  allContentfulAnnouncementBodyRichTextNode: ContentfulAnnouncementBodyRichTextNodeConnection;
   contentfulAsset?: Maybe<ContentfulAsset>;
   allContentfulAsset: ContentfulAssetConnection;
+  contentfulAnnouncementBodyRichTextNode?: Maybe<ContentfulAnnouncementBodyRichTextNode>;
+  allContentfulAnnouncementBodyRichTextNode: ContentfulAnnouncementBodyRichTextNodeConnection;
   contentfulAnnouncement?: Maybe<ContentfulAnnouncement>;
   allContentfulAnnouncement: ContentfulAnnouncementConnection;
   contentfulPageBodyRichTextNode?: Maybe<ContentfulPageBodyRichTextNode>;
@@ -4777,27 +4777,6 @@ export type QueryAllImageSharpArgs = {
 };
 
 
-export type QueryContentfulAnnouncementBodyRichTextNodeArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  content?: Maybe<ContentfulAnnouncementBodyRichTextNodeContentFilterListInput>;
-  nodeType?: Maybe<StringQueryOperatorInput>;
-  body?: Maybe<StringQueryOperatorInput>;
-  sys?: Maybe<ContentfulAnnouncementBodyRichTextNodeSysFilterInput>;
-  json?: Maybe<JsonQueryOperatorInput>;
-};
-
-
-export type QueryAllContentfulAnnouncementBodyRichTextNodeArgs = {
-  filter?: Maybe<ContentfulAnnouncementBodyRichTextNodeFilterInput>;
-  sort?: Maybe<ContentfulAnnouncementBodyRichTextNodeSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
 export type QueryContentfulAssetArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -4823,6 +4802,27 @@ export type QueryContentfulAssetArgs = {
 export type QueryAllContentfulAssetArgs = {
   filter?: Maybe<ContentfulAssetFilterInput>;
   sort?: Maybe<ContentfulAssetSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryContentfulAnnouncementBodyRichTextNodeArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  content?: Maybe<ContentfulAnnouncementBodyRichTextNodeContentFilterListInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  body?: Maybe<StringQueryOperatorInput>;
+  sys?: Maybe<ContentfulAnnouncementBodyRichTextNodeSysFilterInput>;
+  json?: Maybe<JsonQueryOperatorInput>;
+};
+
+
+export type QueryAllContentfulAnnouncementBodyRichTextNodeArgs = {
+  filter?: Maybe<ContentfulAnnouncementBodyRichTextNodeFilterInput>;
+  sort?: Maybe<ContentfulAnnouncementBodyRichTextNodeSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };

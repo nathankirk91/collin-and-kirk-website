@@ -7,9 +7,14 @@ import linkData from "../data/links"
 interface SidebarProp {
   show: Boolean
   clickHandler: () => void
+  handleBookingOpen: () => void
 }
 
-const Sidebar: React.FC<SidebarProp> = ({ show, clickHandler }) => {
+const Sidebar: React.FC<SidebarProp> = ({
+  show,
+  clickHandler,
+  handleBookingOpen,
+}) => {
   const data = useStaticQuery(graphql`
     query LogoQuery1 {
       imageSharp(fluid: { originalName: { eq: "c&k-logo.png" } }) {
@@ -23,6 +28,13 @@ const Sidebar: React.FC<SidebarProp> = ({ show, clickHandler }) => {
   if (show) {
     drawerClassOpen = "open"
   }
+  const closeSidebarAndOpenBooking = () => {
+    clickHandler()
+    setTimeout(() => {
+      handleBookingOpen()
+    }, 300)
+  }
+
   return (
     <SidebarContainer className={drawerClassOpen} show="lg">
       <SidebarUl>
@@ -33,6 +45,11 @@ const Sidebar: React.FC<SidebarProp> = ({ show, clickHandler }) => {
             </SidebarLink>
           </SidebarLi>
         ))}
+        <SidebarLi>
+          <BookingLink onClick={closeSidebarAndOpenBooking}>
+            BOOK AN APPOINTMENT
+          </BookingLink>
+        </SidebarLi>
       </SidebarUl>
       <LogoContainer>
         <Link to="/" onClick={clickHandler}>
@@ -51,7 +68,7 @@ interface SidebarProps {
 const SidebarContainer = styled.nav<SidebarProps>`
   display: none;
   height: 100%;
-  background: ${({theme})=>theme.sidebarBackgroundColour};
+  background: ${({ theme }) => theme.sidebarBackgroundColour};
   box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -91,9 +108,20 @@ const SidebarLink = styled(Link)`
   &:hover,
   &:active {
     cursor: pointer;
-    color: ${({theme})=>theme.sidebarActiveFontColour};
+    color: ${({ theme }) => theme.sidebarActiveFontColour};
   }
 `
+const BookingLink = styled.div`
+  color: black;
+  text-decoration: none;
+  font-size: 1.2rem;
+  &:hover,
+  &:active {
+    cursor: pointer;
+    color: ${({ theme }) => theme.sidebarActiveFontColour};
+  }
+`
+
 const LogoContainer = styled.div`
   width: 100%;
   margin: 1rem auto;

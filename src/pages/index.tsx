@@ -3,6 +3,8 @@ import { PageProps, Link, graphql } from "gatsby"
 import styled from "styled-components"
 import Img from "gatsby-image"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { loadStripe } from "@stripe/stripe-js"
+import { useMutation } from "@apollo/client"
 
 import SEO from "../components/seo"
 import { HomePageImagesQuery } from "../../graphql-types"
@@ -13,8 +15,12 @@ import {
 import Separator from "../components/Separator"
 import Backdrop from "../components/backdrop"
 import Modal from "../components/modal/Modal"
+// import { CREATE_CHECKOUT_SESSION } from "../apollo/cart"
+
+// const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_API)
 
 const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
+  // const [creatCheckoutSession] = useMutation(CREATE_CHECKOUT_SESSION)
   const [showModal, setShowModal] = React.useState(false)
   React.useEffect(() => {
     const localAnnDate = localStorage.getItem("announcement_date")
@@ -29,6 +35,37 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
 
   const closeModal = () => setShowModal(false)
   const openModal = () => setShowModal(true)
+  // const handleClick = async event => {
+  //   event.preventDefault()
+  //   // Get Stripe.js instance
+  //   const stripe = await stripePromise
+
+  //   // Call your backend to create the Checkout Session
+  //   const response = await creatCheckoutSession({
+  //     variables: {
+  //       email: "nathan.kirk91@gmail.com",
+  //       cart: [
+  //         {
+  //           priceId: "price_1HeDFpJVqkkYVOy9PXJXBDH2",
+  //           qty: 2,
+  //         },
+  //       ],
+  //     },
+  //   })
+
+  //   console.log(response)
+
+  //   // When the customer clicks on the button, redirect them to Checkout.
+  //   const result = await stripe.redirectToCheckout({
+  //     sessionId: response.data.createCheckoutSession.checkoutSessionId,
+  //   })
+
+  //   if (result.error) {
+  //     // If `redirectToCheckout` fails due to a browser or network
+  //     // error, display the localized error message to your customer
+  //     // using `result.error.message`.
+  //   }
+  // }
 
   const images = data
   return (
@@ -45,6 +82,8 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
       )}
       <Announcement onClick={openModal}>📢 ANNOUNCEMENTS</Announcement>
       <Separator />
+      {/* <button onClick={handleClick}>Buy</button>
+      <Separator /> */}
       <LayoutImgRight
         title="WHO ARE WE?"
         body="At Collin & Kirk Optometrists, we provide professional personalised eye
@@ -70,12 +109,11 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
         body="We dispense a comprehensive range of eyewear meeting the needs of
         clients of all ages within the local community and surrounds, and
         contact lenses.We have an extensive range of fashion frames include
-        brands such as: Guess, Ray-ban, Dolce & Gabbana, Oroton, Sass & Bide,
-        Wayne Cooper."
+        brands such as: Oroton, Carrera, Burberry, RayBan, Kate Spade, Ted Baker, Prodesign, amongst others."
         img={images.glasses}
       />
       <Separator />
-      <H2>WE ACCEPT</H2>
+      {/* <H2>WE ACCEPT</H2>
       <ImagesContainer>
         <ImgContainer>
           <Img fixed={images.medicare.fixed} alt={images.medicare.title} />
@@ -92,7 +130,12 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
         <ImgContainer>
           <Img fixed={images.bupa.fixed} alt={images.bupa.title} />
         </ImgContainer>
-      </ImagesContainer>
+      </ImagesContainer> */}
+      <div style={{display:"flex", justifyContent:"center", marginTop: "1rem"}}>
+        <p style={{fontStyle: "italic"}}>
+          We can process claims instantly in the Practice to most Health Funds
+        </p>
+      </div>
     </>
   )
 }
@@ -175,8 +218,8 @@ const ImgContainer = styled.div`
 const Announcement = styled.h3`
   text-align: center;
   margin: 1rem;
-  margin-top:0;
-  &:hover{
+  margin-top: 0;
+  &:hover {
     text-decoration: underline;
     cursor: pointer;
   }

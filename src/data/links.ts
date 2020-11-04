@@ -2,10 +2,10 @@ const linkData: Array<{ name: string, link: string }> = [{
     name: "HOME",
     link: "/",
 },
-{
-    name: "BOOK AN APPOINTMENT",
-    link: "/book-an-appointment/",
-},
+// {
+//     name: "BOOK AN APPOINTMENT",
+//     link: "/book-an-appointment/",
+// },
 {
     name: "CONTACT US",
     link: "/contact-us/",

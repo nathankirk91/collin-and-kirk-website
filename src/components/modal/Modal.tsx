@@ -24,6 +24,7 @@ interface ModalContainerProps {
 const ModalContainer = styled.div<ModalContainerProps>`
   position: fixed;
   background-color: white;
+  border-radius: 5px;
   top: 30px;
   left: calc((100% - 30rem) / 2);
   width: 30rem;
@@ -37,8 +38,8 @@ const ModalContainer = styled.div<ModalContainerProps>`
   overflow: auto;
   ${props =>
     props.theme.mediaQuery[props.varWidth](css`
-      width: 90%;
-      left: 5%;
+      width: 80%;
+      left: 10%;
     `)}
 `
 const Close = styled.button`
@@ -49,4 +50,5 @@ const Close = styled.button`
   background: none;
   cursor: pointer;
   outline: none;
+  z-index: 30;
 `

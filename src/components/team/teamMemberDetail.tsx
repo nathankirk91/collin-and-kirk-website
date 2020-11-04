@@ -67,6 +67,7 @@ interface MainContainerProps {
 const MainContainer = styled.div<MainContainerProps>`
   position: fixed;
   background-color: white;
+  border-radius: 5px;
   top: 30px;
   left: calc((100% - 30rem) / 2);
   width: 30rem;
@@ -80,8 +81,8 @@ const MainContainer = styled.div<MainContainerProps>`
   overflow: auto;
   ${props =>
     props.theme.mediaQuery[props.varWidth](css`
-      width: 90%;
-      left: 5%;
+      width: 80%;
+      left: 10%;
     `)}
 `
 

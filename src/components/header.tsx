@@ -2,16 +2,17 @@ import { graphql, Link, useStaticQuery } from "gatsby"
 import { useLocation } from "@reach/router"
 import React from "react"
 import Img from "gatsby-image"
-import linkData from "../data/links"
+import styled from "styled-components"
 
-import styled, { keyframes } from "styled-components"
+import linkData from "../data/links"
 
 interface HeaderProps {
   siteTitle: string
   handleSidebarOpen: () => void
+  handleBookingOpen: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
+const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen, handleBookingOpen }) => {
   const locData = useLocation()
   const data = useStaticQuery(graphql`
     query LogoQuery {
@@ -38,9 +39,12 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
       </HeaderContainer>
       <NavBar collapse="lg">
         {linkData.map((link, index) => (
-          <Link to={link.link} style={{textDecoration: "none", fontSize: "0.9rem"}}>
+          <Link
+            key={index}
+            to={link.link}
+            style={{ textDecoration: "none", fontSize: "0.9rem" }}
+          >
             <NavLinks
-              key={index}
               className={
                 locData.pathname.split("/")[1] === link.link.split("/")[1]
                   ? "active"
@@ -51,6 +55,18 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen }) => {
             </NavLinks>
           </Link>
         ))}
+
+        <div
+          style={{
+            textDecoration: "none",
+            fontSize: "0.9rem",
+            cursor: "pointer",
+          }}
+        >
+          <NavLinks onClick={() => handleBookingOpen()}>
+            BOOK AN APPOINTMENT
+          </NavLinks>
+        </div>
       </NavBar>
     </>
   )
@@ -77,7 +93,7 @@ const NavBar = styled.ul<NavBarProps>`
   justify-content: center;
   margin: 0;
   width: 100%;
-  background-color: ${({theme}) => theme.navColour};
+  background-color: ${({ theme }) => theme.navColour};
   border-bottom: ${({ theme }) => theme.navbar.border};
   ${props =>
     props.theme.mediaQuery[props.collapse](`
@@ -92,7 +108,7 @@ const NavLinks = styled.li`
   transition: border 300ms linear;
   text-decoration: none;
   color: ${({ theme }) => theme.navbar.colour.font};
-    font-size: 0.8rem;
+  font-size: 0.8rem;
   /* & a {
     color: ${({ theme }) => theme.navbar.colour.font};
     font-size: 0.8rem;
