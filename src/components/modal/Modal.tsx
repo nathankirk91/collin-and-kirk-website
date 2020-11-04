@@ -38,8 +38,8 @@ const ModalContainer = styled.div<ModalContainerProps>`
   overflow: auto;
   ${props =>
     props.theme.mediaQuery[props.varWidth](css`
-      width: 80%;
-      left: 10%;
+      width: 90%;
+      left: 5%;
     `)}
 `
 const Close = styled.button`
