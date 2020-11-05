@@ -31,12 +31,15 @@ const TeamMemberSummary: React.FC<TeamMemberProps> = ({
 }) => {
   const [cardOpened, setCardOpened] = React.useState(false)
   const handleOpenDetail =() => {
-      if(!cardOpened){setCardOpened(true)}
+      if(!cardOpened){
+        document.body.style.overflow = 'hidden';
+        setCardOpened(true)
+      }
   }
   const handleCloseDetail = () => {
+    document.body.style.overflow = 'unset';
     setCardOpened(false)
   }
-  console.log(cardOpened)
   return (
     <MainContainer
       onClick={handleOpenDetail}

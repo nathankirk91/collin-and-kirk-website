@@ -33,8 +33,14 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
     }
   }, [])
 
-  const closeModal = () => setShowModal(false)
-  const openModal = () => setShowModal(true)
+  const closeModal = () => {
+    document.body.style.overflow = 'unset';
+    setShowModal(false)
+  }
+  const openModal = () => {
+    document.body.style.overflow = 'hidden';
+    setShowModal(true)
+  }
   // const handleClick = async event => {
   //   event.preventDefault()
   //   // Get Stripe.js instance

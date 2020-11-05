@@ -25,8 +25,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       }
     }
   `)
-  const handleSidedrawOpen = () => setSidedrawOpen(prevState => !prevState)
-  const handleBookingOpen = () => setShowBooking(prevState => !prevState)
+  const handleSidedrawOpen = () => {
+    setSidedrawOpen(prevState => !prevState)
+  }
+  const handleBookingOpen = () => {
+    document.body.style.overflow = 'hidden';
+    setShowBooking(true)
+  }
+  const handleBookingClose = () => {
+    document.body.style.overflow = 'unset';
+    setShowBooking(false)
+  }
   return (
     <>
       <Header
@@ -36,9 +45,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       />
       <Sidebar clickHandler={handleSidedrawOpen} show={sidedrawOpen} handleBookingOpen={handleBookingOpen} />
       {sidedrawOpen && <Backdrop onClick={handleSidedrawOpen} />}
-      {showBooking && <Backdrop onClick={() => setShowBooking(false)} />}
+      {showBooking && <Backdrop onClick={handleBookingClose} />}
         {showBooking && (
-          <Modal handleClose={() => setShowBooking(false)}>
+          <Modal handleClose={handleBookingClose}>
             <iframe
               src="https://www.myhealth1st.com.au/appointmentWidget?theme=popup&practice_id=2953"
               style={{
