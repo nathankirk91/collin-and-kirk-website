@@ -22,6 +22,8 @@ import TextArea from "../components/form/TextArea"
 import FormControlItem from "../components/form/FormControlItem"
 import CustomErrorMessage from "../components/form/CustomErrorMessage"
 import Button from "../components/form/Button"
+import Backdrop from "../components/backdrop"
+import Modal from "../components/modal/Modal"
 
 const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
   const [contactUs, { loading }] = useMutation<ContactUsRes, ContactDetails>(
@@ -64,6 +66,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
     emailSent: false,
     firstName: "",
   })
+  const [showBooking, setShowBooking] = React.useState(false)
   const separatorRef = useRef(null)
   const isCurrent = useRef(true)
   useEffect(() => {
@@ -74,9 +77,38 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
   const scrollToSeparator = () => {
     window.scrollTo(0, separatorRef.current.offsetTop)
   }
+  const handleBookingOpen = () => {
+    document.body.style.overflow = 'hidden';
+    setShowBooking(true)
+  }
+  const handleBookingClose = () => {
+    document.body.style.overflow = 'unset';
+    setShowBooking(false)
+  }
   return (
     <>
       <SEO title="Contact Us" />
+      {showBooking && <Backdrop onClick={handleBookingClose} />}
+        {showBooking && (
+          <Modal handleClose={handleBookingClose}>
+            <iframe
+              src="https://www.myhealth1st.com.au/appointmentWidget?theme=popup&practice_id=2953"
+              style={{
+                boxSizing: "border-box",
+                padding: "0px",
+                margin: "0px",
+                border: "none",
+                position: "relative",
+                top: "0px",
+                left: "0px",
+                width: "100%",
+                height: "80vh",
+              }}
+              width="100%"
+              height="80vh"
+            />
+          </Modal>
+        )}
       <div>
         <SocialFlexBox>
           <h2>Cotnact Us</h2>
@@ -200,7 +232,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
                 <p>
                   This is for questions and inquiries only. If you would like to
                   book an appointment please go{" "}
-                  <Link to="/book-an-appointment/">here</Link>. Thank you.{" "}
+                  <BookLink onClick={() => handleBookingOpen()}>here</BookLink>. Thank you.{" "}
                 </p>
                 <Img
                   fluid={data.contentfulAsset.fluid}
@@ -235,6 +267,12 @@ export const query = graphql`
       }
       title
     }
+  }
+`
+const BookLink = styled.span`
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
   }
 `
 const SocialFlexBox = styled.div`

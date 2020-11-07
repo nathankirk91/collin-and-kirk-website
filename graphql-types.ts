@@ -6128,13 +6128,7 @@ export type HomePageImagesQuery = { contentfulAnnouncement?: Maybe<(
   )>, medicare?: Maybe<(
     Pick<ContentfulAsset, 'title'>
     & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
-  )>, bupa?: Maybe<(
-    Pick<ContentfulAsset, 'title'>
-    & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
-  )>, medibank?: Maybe<(
-    Pick<ContentfulAsset, 'title'>
-    & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
-  )>, ausralianUnity?: Maybe<(
+  )>, hicaps?: Maybe<(
     Pick<ContentfulAsset, 'title'>
     & { fixed?: Maybe<GatsbyContentfulFixed_WithWebpFragment> }
   )> };

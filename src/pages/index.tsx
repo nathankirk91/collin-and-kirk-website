@@ -34,11 +34,11 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
   }, [])
 
   const closeModal = () => {
-    document.body.style.overflow = 'unset';
+    document.body.style.overflow = "unset"
     setShowModal(false)
   }
   const openModal = () => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden"
     setShowModal(true)
   }
   // const handleClick = async event => {
@@ -119,29 +119,23 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
         img={images.glasses}
       />
       <Separator />
-      {/* <H2>WE ACCEPT</H2>
+      {/* <H2>WE ACCEPT</H2> */}
+      <CentreTextContainer>
+        <p style={{ fontStyle: "italic", textAlign: "center" }}>
+          We can process claims in the Practice for ALL Health Funds
+        </p>
+      </CentreTextContainer>
       <ImagesContainer>
         <ImgContainer>
           <Img fixed={images.medicare.fixed} alt={images.medicare.title} />
         </ImgContainer>
         <ImgContainer>
-          <Img fixed={images.medibank.fixed} alt={images.medibank.title} />
+          <Img fixed={images.hicaps.fixed} alt={images.hicaps.title} />
         </ImgContainer>
-        <ImgContainer>
-          <Img
-            fixed={images.ausralianUnity.fixed}
-            alt={images.ausralianUnity.title}
-          />
-        </ImgContainer>
-        <ImgContainer>
-          <Img fixed={images.bupa.fixed} alt={images.bupa.title} />
-        </ImgContainer>
-      </ImagesContainer> */}
-      <div style={{display:"flex", justifyContent:"center", marginTop: "1rem"}}>
-        <p style={{fontStyle: "italic"}}>
-          We can process claims instantly in the Practice to most Health Funds
-        </p>
-      </div>
+      </ImagesContainer>
+      <CentreTextContainer>
+        <p style={{ fontWeight: "bold", textAlign: "center" }}>ALL Health Funds welcome</p>{" "}
+      </CentreTextContainer>
     </>
   )
 }
@@ -187,27 +181,19 @@ export const query = graphql`
         ...GatsbyContentfulFixed_withWebp
       }
     }
-    bupa: contentfulAsset(title: { eq: "bupa" }) {
+    hicaps: contentfulAsset(title: { eq: "hicaps" }) {
       title
-      fixed(width: 108, height: 65) {
-        ...GatsbyContentfulFixed_withWebp
-      }
-    }
-    medibank: contentfulAsset(title: { eq: "medi-bank" }) {
-      title
-      fixed(width: 75, height: 75) {
-        ...GatsbyContentfulFixed_withWebp
-      }
-    }
-    ausralianUnity: contentfulAsset(title: { eq: "ausralian-unity" }) {
-      title
-      fixed(width: 122, height: 54) {
+      fixed(width: 165, height: 29) {
         ...GatsbyContentfulFixed_withWebp
       }
     }
   }
 `
-
+const CentreTextContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+`
 const H2 = styled.h2`
   text-align: center;
   margin: 1rem;

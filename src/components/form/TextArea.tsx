@@ -5,6 +5,7 @@ const TextArea = styled.textarea.attrs(props => ({
 }))`
   padding: 10px;
   width: 100%;
+  resize: none;
   /* max-width: 330px; */
   border: 1px;
   border-radius: 6px;
