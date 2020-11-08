@@ -87,7 +87,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
   }
   return (
     <>
-      <SEO title="Contact Us" />
+      <SEO title="Contact Us" description="Find where we are and book appointments online. We're located at 774 High St Thornbury VIC 3071."/>
       {showBooking && <Backdrop onClick={handleBookingClose} />}
         {showBooking && (
           <Modal handleClose={handleBookingClose}>
@@ -111,7 +111,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
         )}
       <div>
         <SocialFlexBox>
-          <h2>Cotnact Us</h2>
+          <h2>Contact Us</h2>
           <a href="https://www.facebook.com/collinandkirk/" target="_blank">
             <Img fixed={data.imageSharp.fixed} alt="Facebook" />
           </a>
@@ -231,8 +231,8 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
               <ImageContainer>
                 <p>
                   This is for questions and inquiries only. If you would like to
-                  book an appointment please go{" "}
-                  <BookLink onClick={() => handleBookingOpen()}>here</BookLink>. Thank you.{" "}
+                  book an appointment please {" "}
+                  <BookLink onClick={() => handleBookingOpen()}>click here</BookLink>. Thank you.{" "}
                 </p>
                 <Img
                   fluid={data.contentfulAsset.fluid}

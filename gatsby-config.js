@@ -1,11 +1,11 @@
-require('dotenv').config({
+require("dotenv").config({
   path: `.env`,
 })
 module.exports = {
   siteMetadata: {
     title: `Collin & Kirk Optometrists`,
-    description: `Your local small business optometrists`,
-    author: `@kirky1423`
+    description: `Your local small business optometrists. We provide professional personalised eye care using state of the art equipment. Book an eye test online today.`,
+    author: `@kirky1423`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -14,8 +14,8 @@ module.exports = {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
-        accessToken: process.env.CONTENTFUL_TOKEN
-      }
+        accessToken: process.env.CONTENTFUL_TOKEN,
+      },
     },
     `gatsby-plugin-graphql-codegen`,
     {
@@ -28,8 +28,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`
-      }
+        path: `${__dirname}/src/images`,
+      },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -42,9 +42,9 @@ module.exports = {
         background_color: `#FFFFFF`,
         theme_color: `#FFFFFF`,
         display: `minimal-ui`,
-        icon: `src/images/icon.png` // This path is relative to the root of the site.
-      }
+        icon: `src/images/icon.png`, // This path is relative to the root of the site.
+      },
     },
     `gatsby-plugin-offline`,
-  ]
+  ],
 }

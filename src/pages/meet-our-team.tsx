@@ -11,7 +11,7 @@ const MeetOurTeamPage: React.FC<PageProps<TeamQuery>> = ({ data }) => {
   const team = data.allContentfulTeam.nodes
   return (
     <>
-      <SEO title="Meet Our Team" />
+      <SEO title="Meet Our Team" description="Meet our team, your local small business optometrists."/>
       <MainContainer>
         {team.map(member => (
           <TeamMemberSummary

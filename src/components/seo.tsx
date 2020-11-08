@@ -65,6 +65,10 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, title }) => {
           content: title,
         },
         {
+          name: 'keywords',
+          content: 'Collin and Kirk, Optom, Optometrist Thornbury, Optometrist, Vision, Prescription Glasses, Eye Tests, Professional Eyecare, Contact Lenses, Glasses, Thornbury, Family, Local, Small Business, Eye Care, Eye Doctor, Book an eye test online today'
+        },
+        {
           name: `twitter:description`,
           content: metaDescription,
         },

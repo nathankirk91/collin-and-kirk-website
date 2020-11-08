@@ -24,7 +24,7 @@ const EyeConditionsPage: React.FC<PageProps<EyeConditionsQuery>> = ({
   const eyeConditions = data.allContentfulEyeCondition.nodes
   return (
     <>
-      <SEO title="Eye Conditions" />
+      <SEO title="Eye Conditions" description="Learn more about different eye conditions and how we can help you in their treatment"/>
       <div>
         <h2>Eye Conditions</h2>
         <p>

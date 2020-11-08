@@ -7,6 +7,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { EyeConditionPageQuery } from "../../graphql-types"
 import Separator from "../components/Separator"
 import AspectRatio from "../components/aspect-ratio/AspectRatio"
+import SEO from "../components/seo"
 
 const getYouTubeId = (url: string): string => {
   if (!url) return ""
@@ -25,20 +26,22 @@ const EyeCondition: React.FC<PageProps<EyeConditionPageQuery>> = ({ data }) => {
   }
 
   return (
-    <div>
-      <h1>{eyeConditon.title}</h1>
-      {eyeConditon.youTubeUrl && (
-        <>
-          <YouTubeContainer>
-            <AspectRatio ratio={16 / 9}>
-              <YouTubeIframe src={youTubeEm} title={eyeConditon.title} />
-            </AspectRatio>
-          </YouTubeContainer>
-        </>
-      )}
-      {documentToReactComponents(eyeConditon.body.json)}
-      
-    </div>
+    <>
+      <SEO title={eyeConditon.title} />
+      <div>
+        <h1>{eyeConditon.title}</h1>
+        {eyeConditon.youTubeUrl && (
+          <>
+            <YouTubeContainer>
+              <AspectRatio ratio={16 / 9}>
+                <YouTubeIframe src={youTubeEm} title={eyeConditon.title} />
+              </AspectRatio>
+            </YouTubeContainer>
+          </>
+        )}
+        {documentToReactComponents(eyeConditon.body.json)}
+      </div>
+    </>
   )
 }
 
@@ -56,8 +59,6 @@ export const query = graphql`
   }
 `
 const YouTubeContainer = styled.div`
-  
-  
   margin: 1rem auto;
   max-width: 575px;
 `

@@ -114,7 +114,7 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
         title="WHAT WE OFFER"
         body="We dispense a comprehensive range of eyewear meeting the needs of
         clients of all ages within the local community and surrounds, and
-        contact lenses.We have an extensive range of fashion frames include
+        contact lenses. We have an extensive range of fashion frames including
         brands such as: Oroton, Carrera, Burberry, RayBan, Kate Spade, Ted Baker, Prodesign, amongst others."
         img={images.glasses}
       />
