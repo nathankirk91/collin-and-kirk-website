@@ -9,6 +9,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ siteTitle }) => (
   <FooterContainer>
+    <Link style={{color: "white"}} to="/covid">Covid-19 Safe Plan</Link><br/>
     © Copyright {new Date().getFullYear()} {siteTitle}. All Right Reserved.
   </FooterContainer>
 )
