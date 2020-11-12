@@ -24,14 +24,16 @@ const EyeConditionsPage: React.FC<PageProps<EyeConditionsQuery>> = ({
   const eyeConditions = data.allContentfulEyeCondition.nodes
   return (
     <>
-      <SEO title="Eye Conditions" description="Learn more about different eye conditions and how we can help you in their treatment"/>
+      <SEO
+        title="Eye Conditions"
+        description="Learn more about different eye conditions and how we can help you in their treatment"
+      />
       <div>
         <h2>Eye Conditions</h2>
         <p>
-          Think you are suffering from a particular eye condition, here at
-          Collin & Kirk will be able to help you out. Here you can read up on
-          many different eye conditions, and how to deal with said eye
-          conditions.
+          Think you’re suffering from an eye condition? At Collin & Kirk, we can
+          help you out! Here you can read up on many different eye conditions,
+          and how to deal with said eye conditions.
         </p>
         <Separator />
         {eyeConditions.map((condition, index) => (

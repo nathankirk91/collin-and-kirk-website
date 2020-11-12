@@ -230,7 +230,7 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
               </FormContainer>
               <ImageContainer>
                 <p>
-                  This is for questions and inquiries only. If you would like to
+                  This is for questions and enquiries only. If you would like to
                   book an appointment please {" "}
                   <BookLink onClick={() => handleBookingOpen()}>click here</BookLink>. Thank you.{" "}
                 </p>
