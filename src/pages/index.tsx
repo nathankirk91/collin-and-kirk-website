@@ -76,7 +76,7 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
   const images = data
   return (
     <>
-      <SEO title="Home" />
+      <SEO title="Optometry & Personalised Eye Care" />
       {showModal && (
         <>
           <Backdrop onClick={closeModal} />
