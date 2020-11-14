@@ -8,6 +8,10 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json ./
 
+ARG CONTENTFUL_SPACE_ID
+ARG CONTENTFUL_TOKEN
+ARG GATSBY_STRIPE_PUBLISHABLE_API
+
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
