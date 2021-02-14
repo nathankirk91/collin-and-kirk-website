@@ -21,26 +21,26 @@ import Modal from "../components/modal/Modal"
 
 const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
   // const [creatCheckoutSession] = useMutation(CREATE_CHECKOUT_SESSION)
-  // const [showModal, setShowModal] = React.useState(false)
-  // React.useEffect(() => {
-  //   const localAnnDate = localStorage.getItem("announcement_date")
-  //   if (localAnnDate !== data.contentfulAnnouncement.date) {
-  //     setShowModal(true)
-  //     localStorage.setItem(
-  //       "announcement_date",
-  //       data.contentfulAnnouncement.date
-  //     )
-  //   }
-  // }, [])
+  const [showModal, setShowModal] = React.useState(false)
+  React.useEffect(() => {
+    const localAnnDate = localStorage.getItem("announcement_date")
+    if (localAnnDate !== data.contentfulAnnouncement.date) {
+      setShowModal(true)
+      localStorage.setItem(
+        "announcement_date",
+        data.contentfulAnnouncement.date
+      )
+    }
+  }, [])
 
-  // const closeModal = () => {
-  //   document.body.style.overflow = "unset"
-  //   setShowModal(false)
-  // }
-  // const openModal = () => {
-  //   document.body.style.overflow = "hidden"
-  //   setShowModal(true)
-  // }
+  const closeModal = () => {
+    document.body.style.overflow = "unset"
+    setShowModal(false)
+  }
+  const openModal = () => {
+    document.body.style.overflow = "hidden"
+    setShowModal(true)
+  }
   // const handleClick = async event => {
   //   event.preventDefault()
   //   // Get Stripe.js instance
@@ -77,7 +77,7 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
   return (
     <>
       <SEO title="Optometry & Personalised Eye Care" />
-      {/* {showModal && (
+      {showModal && (
         <>
           <Backdrop onClick={closeModal} />
           <Modal handleClose={closeModal}>
@@ -87,7 +87,7 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
         </>
       )}
       <Announcement onClick={openModal}>📢 ANNOUNCEMENTS</Announcement>
-      <Separator /> */}
+      <Separator />
       {/* <button onClick={handleClick}>Buy</button>
       <Separator /> */}
       <LayoutImgRight
