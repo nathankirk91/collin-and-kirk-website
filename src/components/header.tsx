@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({
         <LogoContainer>
           <Link to="/">
             <StaticImage
-              src="../images/c&K-logo.png"
+              src="../images/c&k-logo.png"
               alt={siteTitle}
               width={300}
             />

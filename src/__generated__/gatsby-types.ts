@@ -257,8 +257,6 @@ type Directory_ctimeArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
-  readonly port: Maybe<Scalars['Int']>;
-  readonly host: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
@@ -1272,8 +1270,6 @@ type Query_allDirectoryArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  port: Maybe<IntQueryOperatorInput>;
-  host: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
@@ -2405,8 +2401,6 @@ type SiteFieldsEnum =
   | 'siteMetadata.title'
   | 'siteMetadata.description'
   | 'siteMetadata.author'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2508,8 +2502,6 @@ type SiteGroupConnection = {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  readonly port: Maybe<IntQueryOperatorInput>;
-  readonly host: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
@@ -5622,19 +5614,6 @@ type ContentfulContentTypeSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type Unnamed_1_Query = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
-
-type EyeConditionsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type EyeConditionsQuery = { readonly allContentfulEyeCondition: { readonly nodes: ReadonlyArray<(
-      Pick<ContentfulEyeCondition, 'id' | 'title' | 'slug'>
-      & { readonly excerpt: Maybe<Pick<contentfulEyeConditionExcerptTextNode, 'excerpt'>> }
-    )> } };
-
 type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5647,6 +5626,16 @@ type TeamQuery = { readonly allContentfulTeam: { readonly nodes: ReadonlyArray<(
       Pick<ContentfulTeam, 'fullName' | 'title' | 'yearsInPractice'>
       & { readonly about: Maybe<Pick<contentfulTeamAboutTextNode, 'about'>>, readonly profilePicture: Maybe<Pick<ContentfulAsset, 'gatsbyImageData'>> }
     )> } };
+
+type EyeConditionPageQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+type EyeConditionPageQuery = { readonly contentfulEyeCondition: Maybe<(
+    Pick<ContentfulEyeCondition, 'title' | 'youTubeUrl'>
+    & { readonly body: Maybe<Pick<ContentfulEyeConditionBody, 'raw'>> }
+  )> };
 
 type GatsbyContentfulFixedFragment = Pick<ContentfulFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -5668,13 +5657,18 @@ type GatsbyContentfulFluid_withWebpFragment = Pick<ContentfulFluid, 'base64' | '
 
 type GatsbyContentfulFluid_withWebp_noBase64Fragment = Pick<ContentfulFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
-type HomePageImagesQueryVariables = Exact<{ [key: string]: never; }>;
+type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type HomePageImagesQuery = { readonly contentfulAnnouncement: Maybe<(
-    Pick<ContentfulAnnouncement, 'title' | 'date'>
-    & { readonly body: Maybe<Pick<ContentfulAnnouncementBody, 'raw'>> }
-  )>, readonly reception: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly glasses: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly shopfront: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly practiceLogo: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly medicare: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly hicaps: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>> };
+type Unnamed_1_Query = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
+
+type EyeConditionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type EyeConditionsQuery = { readonly allContentfulEyeCondition: { readonly nodes: ReadonlyArray<(
+      Pick<ContentfulEyeCondition, 'id' | 'title' | 'slug'>
+      & { readonly excerpt: Maybe<Pick<contentfulEyeConditionExcerptTextNode, 'excerpt'>> }
+    )> } };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -5702,20 +5696,13 @@ type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
-type EyeConditionPageQueryVariables = Exact<{
-  slug: Scalars['String'];
-}>;
+type HomePageImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type EyeConditionPageQuery = { readonly contentfulEyeCondition: Maybe<(
-    Pick<ContentfulEyeCondition, 'title' | 'youTubeUrl'>
-    & { readonly body: Maybe<Pick<ContentfulEyeConditionBody, 'raw'>> }
-  )> };
-
-type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+type HomePageImagesQuery = { readonly contentfulAnnouncement: Maybe<(
+    Pick<ContentfulAnnouncement, 'title' | 'date'>
+    & { readonly body: Maybe<Pick<ContentfulAnnouncementBody, 'raw'>> }
+  )>, readonly reception: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly glasses: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly shopfront: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly practiceLogo: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly medicare: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>>, readonly hicaps: Maybe<Pick<ContentfulAsset, 'title' | 'gatsbyImageData'>> };
 
 type ContactUsQueryVariables = Exact<{ [key: string]: never; }>;
 
