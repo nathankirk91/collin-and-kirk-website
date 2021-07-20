@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from "react"
 import { PageProps, graphql, Link } from "gatsby"
-import Img from "gatsby-image"
+import { StaticImage, GatsbyImage } from "gatsby-plugin-image"
 import styled, { css } from "styled-components"
 import { BLOCKS } from "@contentful/rich-text-types"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { useMutation } from "@apollo/client"
 import { useFormik } from "formik"
 
 import SEO from "../components/seo"
-import { ContactUsQuery } from "../../graphql-types"
 import {
   CONTACT_US,
   ContactDetails,
@@ -25,7 +24,9 @@ import Button from "../components/form/Button"
 import Backdrop from "../components/backdrop"
 import Modal from "../components/modal/Modal"
 
-const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
+const ContactUsPage: React.FC<PageProps<GatsbyTypes.ContactUsQuery>> = ({
+  data,
+}) => {
   const [contactUs, { loading }] = useMutation<ContactUsRes, ContactDetails>(
     CONTACT_US
   )
@@ -78,42 +79,52 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
     window.scrollTo(0, separatorRef.current.offsetTop)
   }
   const handleBookingOpen = () => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden"
     setShowBooking(true)
   }
   const handleBookingClose = () => {
-    document.body.style.overflow = 'unset';
+    document.body.style.overflow = "unset"
     setShowBooking(false)
   }
   return (
     <>
-      <SEO title="Contact Us" description="Find where we are and book appointments online. We're located at 774 High St Thornbury VIC 3071."/>
+      <SEO
+        title="Contact Us"
+        description="Find where we are and book appointments online. We're located at 774 High St Thornbury VIC 3071."
+      />
       {showBooking && <Backdrop onClick={handleBookingClose} />}
-        {showBooking && (
-          <Modal handleClose={handleBookingClose}>
-            <iframe
-              src="https://www.myhealth1st.com.au/appointmentWidget?theme=popup&practice_id=2953"
-              style={{
-                boxSizing: "border-box",
-                padding: "0px",
-                margin: "0px",
-                border: "none",
-                position: "relative",
-                top: "0px",
-                left: "0px",
-                width: "100%",
-                height: "80vh",
-              }}
-              width="100%"
-              height="80vh"
-            />
-          </Modal>
-        )}
+      {showBooking && (
+        <Modal handleClose={handleBookingClose}>
+          <iframe
+            src="https://www.myhealth1st.com.au/appointmentWidget?theme=popup&practice_id=2953"
+            style={{
+              boxSizing: "border-box",
+              padding: "0px",
+              margin: "0px",
+              border: "none",
+              position: "relative",
+              top: "0px",
+              left: "0px",
+              width: "100%",
+              height: "80vh",
+            }}
+            width="100%"
+            height="80vh"
+          />
+        </Modal>
+      )}
       <div>
         <SocialFlexBox>
           <h2>Contact Us</h2>
           <a href="https://www.facebook.com/collinandkirk/" target="_blank">
-            <Img fixed={data.imageSharp.fixed} alt="Facebook" />
+            <StaticImage
+              src="../images/facebook_logo.png"
+              alt="Facebook"
+              layout="fixed"
+              width={30}
+              height={30}
+              placeholder="none"
+            />
           </a>
         </SocialFlexBox>
         <MainContainer>
@@ -127,8 +138,8 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
               </MapOuter>
             </MapContainer>
             <DetailsContainer stack="md">
-              {documentToReactComponents(
-                data.contentfulPage.body.json,
+              {renderRichText(
+                { ...data.contentfulPage.body, references: null },
                 {
                   renderNode: {
                     [BLOCKS.PARAGRAPH]: (node, children) => <P>{children}</P>,
@@ -231,11 +242,14 @@ const ContactUsPage: React.FC<PageProps<ContactUsQuery>> = ({ data }) => {
               <ImageContainer>
                 <p>
                   This is for questions and enquiries only. If you would like to
-                  book an appointment please {" "}
-                  <BookLink onClick={() => handleBookingOpen()}>click here</BookLink>. Thank you.{" "}
+                  book an appointment please{" "}
+                  <BookLink onClick={() => handleBookingOpen()}>
+                    click here
+                  </BookLink>
+                  . Thank you.{" "}
                 </p>
-                <Img
-                  fluid={data.contentfulAsset.fluid}
+                <GatsbyImage
+                  image={data.contentfulAsset.gatsbyImageData}
                   alt={data.contentfulAsset.title}
                 />
               </ImageContainer>
@@ -253,18 +267,11 @@ export const query = graphql`
   query ContactUs {
     contentfulPage(title: { eq: "Contact Us" }) {
       body {
-        json
-      }
-    }
-    imageSharp(fixed: { originalName: { eq: "facebook_logo.png" } }) {
-      fixed(width: 30, height: 30) {
-        ...GatsbyImageSharpFixed_withWebp
+        raw
       }
     }
     contentfulAsset(title: { eq: "reception-contact-us" }) {
-      fluid {
-        ...GatsbyContentfulFluid_withWebp
-      }
+      gatsbyImageData
       title
     }
   }

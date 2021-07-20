@@ -1,7 +1,7 @@
 import { graphql, Link, useStaticQuery } from "gatsby"
 import { useLocation } from "@reach/router"
 import React from "react"
-import Img from "gatsby-image"
+import { StaticImage } from "gatsby-plugin-image"
 import styled from "styled-components"
 
 import linkData from "../data/links"
@@ -12,17 +12,12 @@ interface HeaderProps {
   handleBookingOpen: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen, handleBookingOpen }) => {
+const Header: React.FC<HeaderProps> = ({
+  siteTitle,
+  handleSidebarOpen,
+  handleBookingOpen,
+}) => {
   const locData = useLocation()
-  const data = useStaticQuery(graphql`
-    query LogoQuery {
-      imageSharp(fluid: { originalName: { eq: "c&k-logo.png" } }) {
-        fluid(maxWidth: 300) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-  `)
   return (
     <>
       <HeaderContainer>
@@ -33,7 +28,11 @@ const Header: React.FC<HeaderProps> = ({ siteTitle, handleSidebarOpen, handleBoo
         </ToggleButtonContainer>
         <LogoContainer>
           <Link to="/">
-            <Img fluid={data.imageSharp.fluid} alt={siteTitle} />
+            <StaticImage
+              src="../images/c&K-logo.png"
+              alt={siteTitle}
+              width={300}
+            />
           </Link>
         </LogoContainer>
       </HeaderContainer>
@@ -118,7 +117,9 @@ const NavLinks = styled.li`
     border-bottom: ${({ theme }) => theme.navbar.selectedBorder};
   }
 `
-const ToggleButtonContainer = styled.button<NavBarProps>`
+const ToggleButtonContainer = styled.button.attrs({
+  "aria-label":"Menu"
+})<NavBarProps>`
   position: absolute;
   top: 53.5px;
   left: 1rem;

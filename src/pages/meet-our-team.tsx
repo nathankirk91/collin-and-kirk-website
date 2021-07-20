@@ -1,13 +1,11 @@
 import React from "react"
-import { PageProps, Link, graphql } from "gatsby"
-import Img from "gatsby-image"
+import { PageProps, graphql } from "gatsby"
 
 import SEO from "../components/seo"
-import { TeamQuery } from "../../graphql-types"
 import TeamMemberSummary from "../components/team/teamMemeberSummary"
 import styled from "styled-components"
 
-const MeetOurTeamPage: React.FC<PageProps<TeamQuery>> = ({ data }) => {
+const MeetOurTeamPage: React.FC<PageProps<GatsbyTypes.TeamQuery>> = ({ data }) => {
   const team = data.allContentfulTeam.nodes
   return (
     <>
@@ -19,7 +17,7 @@ const MeetOurTeamPage: React.FC<PageProps<TeamQuery>> = ({ data }) => {
             fullName={member.fullName}
             about={member.about.about}
             title={member.title}
-            fluid={member.profilePicture.fluid}
+            gatsbyImageData={member.profilePicture.gatsbyImageData}
             yearsInPractice={member.yearsInPractice}
           />
         ))}
@@ -41,9 +39,7 @@ export const query = graphql`
           about
         }
         profilePicture {
-          fluid(maxWidth: 300) {
-            ...GatsbyContentfulFluid_withWebp
-          }
+          gatsbyImageData(width: 300)
         }
       }
     }

@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import { Link, useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import linkData from "../data/links"
 
 interface SidebarProp {
@@ -15,15 +15,6 @@ const Sidebar: React.FC<SidebarProp> = ({
   clickHandler,
   handleBookingOpen,
 }) => {
-  const data = useStaticQuery(graphql`
-    query LogoQuery1 {
-      imageSharp(fluid: { originalName: { eq: "c&k-logo.png" } }) {
-        fluid(maxWidth: 300) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-  `)
   let drawerClassOpen = ""
   if (show) {
     drawerClassOpen = "open"
@@ -53,7 +44,7 @@ const Sidebar: React.FC<SidebarProp> = ({
       </SidebarUl>
       <LogoContainer>
         <Link to="/" onClick={clickHandler}>
-          <Img fluid={data.imageSharp.fluid} alt="Collin and Kirk" />
+          <StaticImage src="../images/c&k-logo.png" alt="Collin and Kirk" />
         </Link>
       </LogoContainer>
     </SidebarContainer>
@@ -69,7 +60,7 @@ const SidebarContainer = styled.nav<SidebarProps>`
   display: none;
   height: 100%;
   background: ${({ theme }) => theme.sidebarBackgroundColour};
-  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0);
   position: fixed;
   top: 0;
   left: 0;
@@ -79,6 +70,7 @@ const SidebarContainer = styled.nav<SidebarProps>`
   transition: transform 0.3s ease-out;
   &.open {
     transform: translateX(0);
+    box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
   }
   ${props =>
     props.theme.mediaQuery[props.show](css`

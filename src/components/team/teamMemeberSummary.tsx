@@ -1,8 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import Img from "gatsby-image"
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image"
 
-import { ContentfulFluid } from "../../../graphql-types"
 import TeamMemberDetail from "./teamMemberDetail"
 import Backdrop from "../backdrop"
 interface TeamMemberProps {
@@ -10,23 +9,14 @@ interface TeamMemberProps {
   title: string
   about: string
   yearsInPractice: number
-  fluid: Pick<
-    ContentfulFluid,
-    | "base64"
-    | "aspectRatio"
-    | "src"
-    | "srcSet"
-    | "srcWebp"
-    | "srcSetWebp"
-    | "sizes"
-  >
+  gatsbyImageData: IGatsbyImageData
 }
 
 const TeamMemberSummary: React.FC<TeamMemberProps> = ({
   fullName,
   title,
   about,
-  fluid,
+  gatsbyImageData,
   yearsInPractice,
 }) => {
   const [cardOpened, setCardOpened] = React.useState(false)
@@ -47,7 +37,7 @@ const TeamMemberSummary: React.FC<TeamMemberProps> = ({
       <h2>{fullName}</h2>
       <h4>{title}</h4>
       <ImageContainer>
-        <Img fluid={fluid} alt={fullName} />
+        <GatsbyImage image={gatsbyImageData} alt={fullName} />
       </ImageContainer>
       {cardOpened && <Backdrop onClick={handleCloseDetail} />}
       {cardOpened && (
@@ -55,7 +45,7 @@ const TeamMemberSummary: React.FC<TeamMemberProps> = ({
           title={title}
           about={about}
           fullName={fullName}
-          fluid={fluid}
+          gatsbyImageData={gatsbyImageData}
           yearsInPractice={yearsInPractice}
           handleCloseDetail={handleCloseDetail}
         />
@@ -84,7 +74,7 @@ const MainContainer = styled.div`
 `
 const ImageContainer = styled.div`
   width: 150px;
-  & img {
+  & .gatsby-image-wrapper {
     border-radius: 50%;
   }
 `

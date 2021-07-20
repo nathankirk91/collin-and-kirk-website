@@ -1,8 +1,7 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import Img from "gatsby-image"
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image"
 
-import { ContentfulFluid } from "../../../graphql-types"
 import toHTML from "../../helper/toHTML"
 interface TeamMemberProps {
   fullName: string
@@ -10,23 +9,14 @@ interface TeamMemberProps {
   about: string
   yearsInPractice: number
   handleCloseDetail: () => void
-  fluid: Pick<
-    ContentfulFluid,
-    | "base64"
-    | "aspectRatio"
-    | "src"
-    | "srcSet"
-    | "srcWebp"
-    | "srcSetWebp"
-    | "sizes"
-  >
+  gatsbyImageData: IGatsbyImageData
 }
 
 const TeamMemberDetail: React.FC<TeamMemberProps> = ({
   fullName,
   title,
   about,
-  fluid,
+  gatsbyImageData,
   yearsInPractice,
   handleCloseDetail,
 }) => {
@@ -50,7 +40,7 @@ const TeamMemberDetail: React.FC<TeamMemberProps> = ({
       <h2>{fullName}</h2>
       <h4>{title}</h4>
       <ImageContainer>
-        <Img fluid={fluid} alt={fullName} />
+        <GatsbyImage image={gatsbyImageData} alt={fullName} />
       </ImageContainer>
       <About dangerouslySetInnerHTML={{ __html: toHTML(about) }} />
       <YearsInPracticeHeading>Years In Practice</YearsInPracticeHeading>
@@ -88,7 +78,7 @@ const MainContainer = styled.div<MainContainerProps>`
 
 const ImageContainer = styled.div`
   width: 150px;
-  & img {
+  & .gatsby-image-wrapper {
     border-radius: 50%;
   }
 `

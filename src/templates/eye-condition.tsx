@@ -1,11 +1,7 @@
 import { graphql, PageProps } from "gatsby"
 import React from "react"
 import styled from "styled-components"
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
-
-import { EyeConditionPageQuery } from "../../graphql-types"
-import Separator from "../components/Separator"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 import AspectRatio from "../components/aspect-ratio/AspectRatio"
 import SEO from "../components/seo"
 
@@ -17,7 +13,7 @@ const getYouTubeId = (url: string): string => {
   return match && match[2].length === 11 ? match[2] : null
 }
 
-const EyeCondition: React.FC<PageProps<EyeConditionPageQuery>> = ({ data }) => {
+const EyeCondition: React.FC<PageProps<GatsbyTypes.EyeConditionPageQuery>> = ({ data }) => {
   const eyeConditon = data.contentfulEyeCondition
   let youTubeEm
   if (eyeConditon.youTubeUrl) {
@@ -39,7 +35,7 @@ const EyeCondition: React.FC<PageProps<EyeConditionPageQuery>> = ({ data }) => {
             </YouTubeContainer>
           </>
         )}
-        {documentToReactComponents(eyeConditon.body.json)}
+        {renderRichText({...eyeConditon.body, references: null})}
       </div>
     </>
   )
@@ -53,7 +49,7 @@ export const query = graphql`
       title
       youTubeUrl
       body {
-        json
+        raw
       }
     }
   }

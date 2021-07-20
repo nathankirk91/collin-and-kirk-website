@@ -17,7 +17,9 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_TOKEN,
       },
     },
-    `gatsby-plugin-graphql-codegen`,
+    // `gatsby-plugin-graphql-codegen`,
+    `gatsby-plugin-typegen`,
+    `gatsby-plugin-image`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {

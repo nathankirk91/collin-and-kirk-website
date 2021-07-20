@@ -1,20 +1,10 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import Img from "gatsby-image"
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image"
 
-import { ContentfulFluid } from "../../../graphql-types"
 interface HomePageLayoutProps {
   img: {
-    fluid?: Pick<
-      ContentfulFluid,
-      | "base64"
-      | "aspectRatio"
-      | "src"
-      | "srcSet"
-      | "srcWebp"
-      | "srcSetWebp"
-      | "sizes"
-    >
+    gatsbyImageData?: IGatsbyImageData
     title?: string
   }
   body: string
@@ -29,7 +19,7 @@ export const LayoutImgLeft: React.FC<HomePageLayoutProps> = ({
   return (
     <MainImgLeftContainer stack="lg" imgRight>
       <ImgContainer>
-        <Img fluid={img.fluid} alt={img.title} />
+        <GatsbyImage image={img.gatsbyImageData} alt={img.title} />
       </ImgContainer>
       <TextContainer>
         <H2Right stack="lg">{title}</H2Right>
@@ -51,7 +41,7 @@ export const LayoutImgRight: React.FC<HomePageLayoutProps> = ({
         <PLeft stack="lg">{body}</PLeft>
       </TextContainer>
       <ImgContainer>
-        <Img fluid={img.fluid} alt={img.title} />
+        <GatsbyImage image={img.gatsbyImageData} alt={img.title} />
       </ImgContainer>
     </MainImgRightContainer>
   )

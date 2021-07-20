@@ -1,13 +1,12 @@
 import React from "react"
 import { PageProps, Link, graphql } from "gatsby"
 import styled from "styled-components"
-import Img from "gatsby-image"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { GatsbyImage } from "gatsby-plugin-image"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { loadStripe } from "@stripe/stripe-js"
 import { useMutation } from "@apollo/client"
 
 import SEO from "../components/seo"
-import { HomePageImagesQuery } from "../../graphql-types"
 import {
   LayoutImgLeft,
   LayoutImgRight,
@@ -15,11 +14,12 @@ import {
 import Separator from "../components/Separator"
 import Backdrop from "../components/backdrop"
 import Modal from "../components/modal/Modal"
+
 // import { CREATE_CHECKOUT_SESSION } from "../apollo/cart"
 
 // const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_API)
 
-const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
+const IndexPage: React.FC<PageProps<GatsbyTypes.HomePageImagesQuery>> = ({ data }) => {
   // const [creatCheckoutSession] = useMutation(CREATE_CHECKOUT_SESSION)
   const [showModal, setShowModal] = React.useState(false)
   React.useEffect(() => {
@@ -82,7 +82,7 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
           <Backdrop onClick={closeModal} />
           <Modal handleClose={closeModal}>
             <h2>{data.contentfulAnnouncement.title}</h2>
-            {documentToReactComponents(data.contentfulAnnouncement.body.json)}
+            {renderRichText({...data.contentfulAnnouncement.body, references:null})}
           </Modal>
         </>
       )}
@@ -127,10 +127,10 @@ const IndexPage: React.FC<PageProps<HomePageImagesQuery>> = ({ data }) => {
       </CentreTextContainer>
       <ImagesContainer>
         <ImgContainer>
-          <Img fixed={images.medicare.fixed} alt={images.medicare.title} />
+          <GatsbyImage image={images.medicare.gatsbyImageData} alt={images.medicare.title} />
         </ImgContainer>
         <ImgContainer>
-          <Img fixed={images.hicaps.fixed} alt={images.hicaps.title} />
+          <GatsbyImage image={images.hicaps.gatsbyImageData} alt={images.hicaps.title} />
         </ImgContainer>
       </ImagesContainer>
       <CentreTextContainer>
@@ -148,44 +148,32 @@ export const query = graphql`
       title
       date(formatString: "DD-MM-YYYY")
       body {
-        json
+        raw
       }
     }
     reception: contentfulAsset(title: { eq: "reception-waiting-room" }) {
       title
-      fluid {
-        ...GatsbyContentfulFluid_withWebp
-      }
+      gatsbyImageData(placeholder: DOMINANT_COLOR)
     }
     glasses: contentfulAsset(title: { eq: "glasses-display" }) {
       title
-      fluid {
-        ...GatsbyContentfulFluid_withWebp
-      }
+      gatsbyImageData(placeholder: DOMINANT_COLOR)
     }
     shopfront: contentfulAsset(title: { eq: "shopfront" }) {
       title
-      fluid {
-        ...GatsbyContentfulFluid_withWebp
-      }
+      gatsbyImageData(placeholder: DOMINANT_COLOR)
     }
     practiceLogo: contentfulAsset(title: { eq: "practice-logo" }) {
       title
-      fluid {
-        ...GatsbyContentfulFluid_withWebp
-      }
+      gatsbyImageData(placeholder: DOMINANT_COLOR)
     }
     medicare: contentfulAsset(title: { eq: "medicare" }) {
       title
-      fixed(width: 147, height: 38) {
-        ...GatsbyContentfulFixed_withWebp
-      }
+      gatsbyImageData(width: 147, height: 38, placeholder: NONE)
     }
     hicaps: contentfulAsset(title: { eq: "hicaps" }) {
       title
-      fixed(width: 165, height: 29) {
-        ...GatsbyContentfulFixed_withWebp
-      }
+      gatsbyImageData(width: 165, height: 29, placeholder: NONE)
     }
   }
 `

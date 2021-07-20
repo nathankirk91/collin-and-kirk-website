@@ -3,7 +3,6 @@ import { PageProps, Link, graphql } from "gatsby"
 import styled, { css } from "styled-components"
 
 import SEO from "../components/seo"
-import { EyeConditionsQuery } from "../../graphql-types"
 import Separator from "../components/Separator"
 import Button from "../components/form/Button"
 
@@ -18,7 +17,7 @@ const truncate = (str: string, max: number, suffix: string): string =>
 const leftPos = (index: number): boolean =>
   (index + 1) % 2 === 0 ? true : false
 
-const EyeConditionsPage: React.FC<PageProps<EyeConditionsQuery>> = ({
+const EyeConditionsPage: React.FC<PageProps<GatsbyTypes.EyeConditionsQuery>> = ({
   data,
 }) => {
   const eyeConditions = data.allContentfulEyeCondition.nodes
