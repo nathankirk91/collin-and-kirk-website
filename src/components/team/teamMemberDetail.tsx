@@ -23,7 +23,7 @@ const TeamMemberDetail: React.FC<TeamMemberProps> = ({
   const [yearCounter, setYearCounter] = React.useState(0)
   let timerRef = React.useRef(0)
   React.useEffect(() => {
-    timerRef.current = setInterval(
+    timerRef.current = window.setInterval(
       () => setYearCounter(prevState => prevState + 1),
       1000 / yearsInPractice
     )

@@ -3,8 +3,8 @@ import { PageProps, Link, graphql } from "gatsby"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
-import { loadStripe } from "@stripe/stripe-js"
-import { useMutation } from "@apollo/client"
+// import { loadStripe } from "@stripe/stripe-js"
+// import { useMutation } from "@apollo/client"
 
 import SEO from "../components/seo"
 import {
