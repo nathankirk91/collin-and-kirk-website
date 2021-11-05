@@ -14,12 +14,15 @@ import {
 import Separator from "../components/Separator"
 import Backdrop from "../components/backdrop"
 import Modal from "../components/modal/Modal"
+import { BLOCKS } from "@contentful/rich-text-react-renderer/node_modules/@contentful/rich-text-types"
 
 // import { CREATE_CHECKOUT_SESSION } from "../apollo/cart"
 
 // const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_API)
 
-const IndexPage: React.FC<PageProps<GatsbyTypes.HomePageImagesQuery>> = ({ data }) => {
+const IndexPage: React.FC<PageProps<GatsbyTypes.HomePageImagesQuery>> = ({
+  data,
+}) => {
   // const [creatCheckoutSession] = useMutation(CREATE_CHECKOUT_SESSION)
   const [showModal, setShowModal] = React.useState(false)
   React.useEffect(() => {
@@ -74,6 +77,7 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.HomePageImagesQuery>> = ({ data 
   // }
 
   const images = data
+  console.log(data.contentfulAnnouncement.body)
   return (
     <>
       <SEO title="Optometry & Personalised Eye Care" />
@@ -82,7 +86,15 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.HomePageImagesQuery>> = ({ data 
           <Backdrop onClick={closeModal} />
           <Modal handleClose={closeModal}>
             <h2>{data.contentfulAnnouncement.title}</h2>
-            {renderRichText({...data.contentfulAnnouncement.body, references:null})}
+            {renderRichText({
+              ...data.contentfulAnnouncement.body,
+              references: data.contentfulAnnouncement.body.references,
+            },{renderNode: {
+              [BLOCKS.EMBEDDED_ASSET]: (node) => {
+                const { gatsbyImageData } = node.data.target
+                return(<GatsbyImage style={{borderRadius: "8px", marginBottom: "16px"}} image={gatsbyImageData} alt={"Important announcement"}/>)
+              },
+            }})}
           </Modal>
         </>
       )}
@@ -127,14 +139,22 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.HomePageImagesQuery>> = ({ data 
       </CentreTextContainer>
       <ImagesContainer>
         <ImgContainer>
-          <GatsbyImage image={images.medicare.gatsbyImageData} alt={images.medicare.title} />
+          <GatsbyImage
+            image={images.medicare.gatsbyImageData}
+            alt={images.medicare.title}
+          />
         </ImgContainer>
         <ImgContainer>
-          <GatsbyImage image={images.hicaps.gatsbyImageData} alt={images.hicaps.title} />
+          <GatsbyImage
+            image={images.hicaps.gatsbyImageData}
+            alt={images.hicaps.title}
+          />
         </ImgContainer>
       </ImagesContainer>
       <CentreTextContainer>
-        <p style={{ fontWeight: "bold", textAlign: "center" }}>ALL Health Funds welcome</p>{" "}
+        <p style={{ fontWeight: "bold", textAlign: "center" }}>
+          ALL Health Funds welcome
+        </p>{" "}
       </CentreTextContainer>
     </>
   )
@@ -149,6 +169,13 @@ export const query = graphql`
       date(formatString: "DD-MM-YYYY")
       body {
         raw
+        references {
+          ... on ContentfulAsset {
+            contentful_id
+            __typename
+            gatsbyImageData
+          }
+        }
       }
     }
     reception: contentfulAsset(title: { eq: "reception-waiting-room" }) {
